@@ -83,59 +83,85 @@ function renderArticles(articles) {
 // PUBLICATIONS RENDERING
 // ================================
 function renderPublications(publications) {
-    const publicationsGrid = document.getElementById('publicationsGrid');
-    if (!publicationsGrid) return;
+    const publicationsCarousel = document.getElementById('publicationsCarousel');
+    if (!publicationsCarousel) return;
 
-    publicationsGrid.innerHTML = publications.map(pub => `
-        <article class="content-card scroll-reveal">
-            <div class="card-header">
-                <h3 class="card-title">${pub.title}</h3>
-                <div class="card-meta">
-                    <span>📚 ${pub.venue}</span>
-                    <span>📅 ${formatDateShort(pub.date)}</span>
+    publicationsCarousel.innerHTML = publications.map(pub => `
+        <div class="carousel-slide">
+            <article class="content-card">
+                <div class="card-header">
+                    <h3 class="card-title">${pub.title}</h3>
+                    <div class="card-meta">
+                        <span>📚 ${pub.venue}</span>
+                        <span>📅 ${formatDateShort(pub.date)}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <p style="color: var(--color-text-tertiary); font-size: 0.875rem;">
-                    ${pub.type} Publication
-                </p>
-            </div>
-            <div class="card-footer">
-                <a href="${pub.url}" target="_blank" rel="noopener noreferrer" class="card-link">
-                    View Publication →
-                </a>
-            </div>
-        </article>
+                <div class="card-body">
+                    <p style="color: var(--color-text-tertiary); font-size: 0.875rem;">
+                        ${pub.type} Publication
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="${pub.url}" target="_blank" rel="noopener noreferrer" class="card-link">
+                        View Publication →
+                    </a>
+                </div>
+            </article>
+        </div>
     `).join('');
 
-    initScrollRevealForNew();
+    // Initialize carousel
+    if (window.Carousel) {
+        window.publicationsCarousel = new Carousel('publicationsCarousel', {
+            autoplay: true,
+            autoplayDelay: 7000,
+            loop: true,
+            swipe: true,
+            prevBtn: 'publicationsPrev',
+            nextBtn: 'publicationsNext',
+            indicators: 'publicationsIndicators'
+        });
+    }
 }
 
 // ================================
 // MEDIA RENDERING
 // ================================
 function renderMedia(mediaItems) {
-    const mediaGrid = document.getElementById('mediaGrid');
-    if (!mediaGrid) return;
+    const mediaCarousel = document.getElementById('mediaCarousel');
+    if (!mediaCarousel) return;
 
-    mediaGrid.innerHTML = mediaItems.map(item => `
-        <article class="content-card scroll-reveal">
-            <div class="card-header">
-                <h3 class="card-title">${item.title}</h3>
-                <div class="card-meta">
-                    <span>📰 ${item.outlet}</span>
-                    <span>📅 ${formatDateShort(item.date)}</span>
+    mediaCarousel.innerHTML = mediaItems.map(item => `
+        <div class="carousel-slide">
+            <article class="content-card">
+                <div class="card-header">
+                    <h3 class="card-title">${item.title}</h3>
+                    <div class="card-meta">
+                        <span>📰 ${item.outlet}</span>
+                        <span>📅 ${formatDateShort(item.date)}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="card-footer" style="margin-top: 1rem;">
-                <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="card-link">
-                    Read Article →
-                </a>
-            </div>
-        </article>
+                <div class="card-footer" style="margin-top: 1rem;">
+                    <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="card-link">
+                        Read Article →
+                    </a>
+                </div>
+            </article>
+        </div>
     `).join('');
 
-    initScrollRevealForNew();
+    // Initialize carousel
+    if (window.Carousel) {
+        window.mediaCarousel = new Carousel('mediaCarousel', {
+            autoplay: true,
+            autoplayDelay: 8000,
+            loop: true,
+            swipe: true,
+            prevBtn: 'mediaPrev',
+            nextBtn: 'mediaNext',
+            indicators: 'mediaIndicators'
+        });
+    }
 }
 
 // ================================
