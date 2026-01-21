@@ -200,13 +200,34 @@ function initScrollRevealForNew() {
 // ================================
 // JOURNEY / TIMELINE RENDERING
 // ================================
+// ================================
+// JOURNEY / TIMELINE RENDERING
+// ================================
 function renderJourney(journeyItems) {
-    const journeyContainer = document.getElementById('journeyTimeline');
-    if (!journeyContainer) return;
-
     if (!journeyItems || journeyItems.length === 0) return;
 
-    journeyContainer.innerHTML = journeyItems.map(item => `
+    const experienceContainer = document.getElementById('experienceTimeline');
+    const educationContainer = document.getElementById('educationTimeline');
+
+    // If we have separate containers (journey.html), render split
+    if (experienceContainer && educationContainer) {
+        const experienceItems = journeyItems.filter(item => item.type === 'experience');
+        const educationItems = journeyItems.filter(item => item.type === 'education');
+
+        renderTimelineItems(experienceContainer, experienceItems);
+        renderTimelineItems(educationContainer, educationItems);
+    }
+    // Fallback if we have a single container (legacy or other usage)
+    else {
+        const journeyContainer = document.getElementById('journeyTimeline');
+        if (journeyContainer) {
+            renderTimelineItems(journeyContainer, journeyItems);
+        }
+    }
+}
+
+function renderTimelineItems(container, items) {
+    container.innerHTML = items.map(item => `
         <div class="timeline-item scroll-reveal">
             <div class="timeline-dot"></div>
             <div class="timeline-content">
