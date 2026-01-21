@@ -580,6 +580,7 @@
         font-size: 1.25rem;
     }
 }
+
 /* ================================
    TIMELINE / JOURNEY SECTION
    ================================ */
@@ -596,14 +597,16 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 20px; /* Adjust based on dot size */
+    left: 20px;
+    /* Adjust based on dot size */
     width: 2px;
     background: var(--glass-border);
 }
 
 .timeline-item {
     position: relative;
-    padding-left: 60px; /* Space for line and dot */
+    padding-left: 60px;
+    /* Space for line and dot */
     margin-bottom: var(--spacing-xl);
 }
 
@@ -614,7 +617,8 @@
 /* Dot on the line */
 .timeline-dot {
     position: absolute;
-    left: 11px; /* Center on line (20px left + 1px line width - 10px dot radius) */
+    left: 11px;
+    /* Center on line (20px left + 1px line width - 10px dot radius) */
     top: 0;
     width: 20px;
     height: 20px;
@@ -684,14 +688,98 @@
     .timeline::before {
         left: 10px;
     }
+
     .timeline-dot {
         left: 1px;
     }
+
     .timeline-item {
         padding-left: 40px;
     }
+
     .timeline-header {
         flex-direction: column;
+    }
+}
+
+/* Alternating Timeline (for Experience) */
+.timeline.alternating {
+    max-width: 1000px;
+}
+
+.timeline.alternating::before {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.timeline.alternating .timeline-item {
+    width: 50%;
+    padding-left: 0;
+    padding-right: 40px;
+    position: relative;
+}
+
+.timeline.alternating .timeline-item:nth-child(even) {
+    margin-left: 50%;
+    padding-left: 40px;
+    padding-right: 0;
+}
+
+.timeline.alternating .timeline-item:nth-child(odd) .timeline-dot {
+    left: auto;
+    right: -10px;
+}
+
+.timeline.alternating .timeline-item:nth-child(even) .timeline-dot {
+    left: -10px;
+}
+
+.timeline.alternating .timeline-item:nth-child(odd) .timeline-content {
+    text-align: right;
+}
+
+.timeline.alternating .timeline-item:nth-child(odd) .timeline-header {
+    flex-direction: row-reverse;
+}
+
+.timeline.alternating .timeline-item:nth-child(odd) .timeline-org {
+    justify-content: flex-end;
+}
+
+/* Responsive Alternating Timeline */
+@media (max-width: 768px) {
+    .timeline.alternating::before {
+        left: 10px;
+        transform: none;
+    }
+
+    .timeline.alternating .timeline-item {
+        width: 100%;
+        padding-right: 0;
+        padding-left: 40px;
+    }
+
+    .timeline.alternating .timeline-item:nth-child(even) {
+        margin-left: 0;
+    }
+
+    .timeline.alternating .timeline-item:nth-child(odd) .timeline-dot,
+    .timeline.alternating .timeline-item:nth-child(even) .timeline-dot {
+        left: 1px;
+        right: auto;
+    }
+
+    .timeline.alternating .timeline-item:nth-child(odd) .timeline-content {
+        text-align: left;
+    }
+
+    .timeline.alternating .timeline-item:nth-child(odd) .timeline-header {
+        flex-direction: column;
+        /* Or row if you want to keep it consistent with normal timeline */
+    }
+
+    .timeline.alternating .timeline-item:nth-child(odd) .timeline-org {
+        justify-content: flex-start;
     }
 }
 
