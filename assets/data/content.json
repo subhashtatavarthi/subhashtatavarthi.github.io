@@ -23,33 +23,57 @@
     {
       "type": "experience",
       "role": "Enterprise Architect",
-      "organization": "Leading Tech Company",
-      "period": "2022 - Present",
-      "location": "New York, USA",
+      "organization": "AT&T (Kasmo)",
+      "period": "2023 - Present",
+      "location": "Dallas, TX",
       "description": "Leading enterprise AI architecture and cloud-native transformation initiatives."
     },
     {
       "type": "experience",
-      "role": "Senior Solutions Architect",
-      "organization": "Global Solutions Inc.",
-      "period": "2018 - 2022",
-      "location": "San Francisco, USA",
+      "role": "Data Architect",
+      "organization": "Niagara Bottling",
+      "period": "2021 - 2023",
+      "location": "Diamond Bar, CA",
+      "description": "Designed scalable distributed systems and microservices architectures."
+    },
+    {
+      "type": "experience",
+      "role": "Senior Technical Lead",
+      "organization": "Cummins (Vigilant)",
+      "period": "2018 - 2021",
+      "location": "Columbus,IN",
+      "description": "Designed scalable distributed systems and microservices architectures."
+    },
+    {
+      "type": "experience",
+      "role": "Senior Technical Lead",
+      "organization": "Zensar",
+      "period": "2016 - 2018",
+      "location": "Hyderabad,India",
+      "description": "Designed scalable distributed systems and microservices architectures."
+    },
+    {
+      "type": "experience",
+      "role": "Senior Technical Lead",
+      "organization": "Zensar",
+      "period": "2008 - 2016",
+      "location": "Hyderabad,India",
       "description": "Designed scalable distributed systems and microservices architectures."
     },
     {
       "type": "education",
-      "role": "Master of Science in Computer Science",
-      "organization": "Tech University",
-      "period": "2016 - 2018",
-      "location": "Boston, USA",
+      "role": "Master of AI and Machine Learning",
+      "organization": "BITS Hyderabad",
+      "period": "2020 - 2021",
+      "location": "Hyderabad, India",
       "description": "Specialization in Artificial Intelligence and Machine Learning."
     },
     {
       "type": "education",
       "role": "Bachelor of Technology",
-      "organization": "Institute of Technology",
-      "period": "2012 - 2016",
-      "location": "India",
+      "organization": "JNTU Hyderabad",
+      "period": "2004 - 2008",
+      "location": "Hyderabad, India",
       "description": "Major in Electronics and Communication Engineering."
     }
   ],
