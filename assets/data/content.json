@@ -19,6 +19,40 @@
       "Technical Writing"
     ]
   },
+  "journey": [
+    {
+      "type": "experience",
+      "role": "Enterprise Architect",
+      "organization": "Leading Tech Company",
+      "period": "2022 - Present",
+      "location": "New York, USA",
+      "description": "Leading enterprise AI architecture and cloud-native transformation initiatives."
+    },
+    {
+      "type": "experience",
+      "role": "Senior Solutions Architect",
+      "organization": "Global Solutions Inc.",
+      "period": "2018 - 2022",
+      "location": "San Francisco, USA",
+      "description": "Designed scalable distributed systems and microservices architectures."
+    },
+    {
+      "type": "education",
+      "role": "Master of Science in Computer Science",
+      "organization": "Tech University",
+      "period": "2016 - 2018",
+      "location": "Boston, USA",
+      "description": "Specialization in Artificial Intelligence and Machine Learning."
+    },
+    {
+      "type": "education",
+      "role": "Bachelor of Technology",
+      "organization": "Institute of Technology",
+      "period": "2012 - 2016",
+      "location": "India",
+      "description": "Major in Electronics and Communication Engineering."
+    }
+  ],
   "mediumArticles": [
     {
       "title": "From Data Engineering — AI : Transform yourselves in simple ways",

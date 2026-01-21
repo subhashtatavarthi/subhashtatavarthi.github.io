@@ -9,6 +9,7 @@ async function loadContent() {
         const data = await response.json();
 
         renderSkills(data.profile.skills);
+        renderJourney(data.journey);
         renderArticles(data.mediumArticles);
         renderPublications(data.publications);
         renderMedia(data.media);
@@ -194,4 +195,36 @@ function initScrollRevealForNew() {
             observer.observe(el);
         });
     });
+}
+
+// ================================
+// JOURNEY / TIMELINE RENDERING
+// ================================
+function renderJourney(journeyItems) {
+    const journeyContainer = document.getElementById('journeyTimeline');
+    if (!journeyContainer) return;
+
+    if (!journeyItems || journeyItems.length === 0) return;
+
+    journeyContainer.innerHTML = journeyItems.map(item => `
+        <div class="timeline-item scroll-reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="timeline-header">
+                    <h3 class="timeline-role">${item.role}</h3>
+                    <span class="timeline-period">${item.period}</span>
+                </div>
+                <div class="timeline-org">
+                    <span>${item.type === 'education' ? '🎓' : '💼'}</span>
+                    <span>${item.organization}</span>
+                    <span style="color: var(--color-text-tertiary);">• ${item.location}</span>
+                </div>
+                <div class="timeline-desc">
+                    ${item.description}
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    initScrollRevealForNew();
 }
