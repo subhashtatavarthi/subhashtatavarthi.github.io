@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Subhash Tatavarthi - Enterprise Architect & AI Thought Leader sharing insights on enterprise AI architecture, cloud-native solutions, and building intelligent systems at scale">
+    <meta name="keywords"
+        content="AI, Machine Learning, Enterprise Architecture, Cloud Native, Generative AI, Data Engineering">
+    <meta name="author" content="Subhash Tatavarthi">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Subhash Tatavarthi - Enterprise Architect & AI Thought Leader">
+    <meta property="og:description"
+        content="Sharing insights on enterprise AI architecture, cloud-native solutions, and the journey of building intelligent systems at scale">
+    <meta property="og:type" content="website">
+
+    <title>Subhash Tatavarthi - Enterprise Architect & AI Thought Leader</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="navbar-brand">&lt;Subhash /&gt;</a>
+
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="#home" class="navbar-link active">Home</a></li>
+                <li><a href="#about" class="navbar-link">About</a></li>
+                <li><a href="#articles" class="navbar-link">Articles</a></li>
+                <li><a href="#publications" class="navbar-link">Publications</a></li>
+                <li><a href="#media" class="navbar-link">Media</a></li>
+                <li><a href="#contact" class="navbar-link">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                </li>
+            </ul>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <img src="assets/images/profile.jpg" alt="Subhash Tatavarthi" class="profile-avatar" id="profileAvatar">
+                <h1 class="hero-title">Subhash Tatavarthi</h1>
+                <p class="hero-subtitle">Enterprise Architect • AI Thought Leader</p>
+                <p class="hero-subtitle">Sharing insights on enterprise AI architecture, cloud-native solutions, and the
+                    journey of building intelligent systems at scale</p>
+
+                <div class="hero-cta">
+                    <a href="https://medium.com/@t.subhash" target="_blank" class="btn btn-primary">
+                        📝 Read on Medium
+                    </a>
+                    <a href="https://www.linkedin.com/in/subhash-tatavarthi-a7608014/" target="_blank"
+                        class="btn btn-outline">
+                        💼 Connect on LinkedIn
+                    </a>
+                    <a href="#contact" class="btn btn-glass">
+                        📧 Get in Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title text-gradient">About Me</h2>
+                <p class="section-subtitle">Writing, building, and sharing the journey in public</p>
+            </div>
+
+            <div class="profile-section glass-card">
+                <p style="font-size: 1.125rem; text-align: center; margin-bottom: 2rem;">
+                    I'm a software engineer and a content writer who enjoys turning complex problems into clear systems
+                    and clear stories.
+                    This blog is where I document experiments, wins, failures, and frameworks I'm testing in the real
+                    world.
+                </p>
+
+                <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-primary-light);">Technical
+                    Expertise</h3>
+                <div class="skills-grid" id="skillsGrid">
+                    <!-- Skills will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medium Articles Section -->
+    <section class="section section-lg" id="articles">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title text-gradient">Medium Articles</h2>
+                <p class="section-subtitle">Latest thoughts and insights on AI, ML, and Enterprise Architecture</p>
+            </div>
+
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="articlesCarousel">
+                        <!-- Articles will be loaded dynamically as carousel slides -->
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="articlesPrev" aria-label="Previous article">
+                        ‹
+                    </button>
+                    <button class="carousel-btn" id="articlesNext" aria-label="Next article">
+                        ›
+                    </button>
+                </div>
+            </div>
+
+            <div class="carousel-indicators" id="articlesIndicators">
+                <!-- Indicators will be added dynamically -->
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="https://medium.com/@t.subhash" target="_blank" class="btn btn-primary">
+                    View All Articles →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section class="section" id="publications">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title text-gradient">Academic Publications</h2>
+                <p class="section-subtitle">Research and journals on AI, GenAI, and Enterprise Systems</p>
+            </div>
+
+            <div class="card-grid" id="publicationsGrid">
+                <!-- Publications will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Media & Features Section -->
+    <section class="section section-lg" id="media">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title text-gradient">Media & Features</h2>
+                <p class="section-subtitle">Interviews, podcasts, and features about engineering and AI</p>
+            </div>
+
+            <div class="card-grid" id="mediaGrid">
+                <!-- Media features will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & QR Code Section -->
+    <section class="section" id="contact">
+        <div class="container container-narrow">
+            <div class="section-header">
+                <h2 class="section-title text-gradient">Get in Touch</h2>
+                <p class="section-subtitle">Let's connect and collaborate</p>
+            </div>
+
+            <div class="qr-container">
+                <h3 style="margin-bottom: 1rem;">Scan to Visit</h3>
+                <p style="color: var(--color-text-tertiary); font-size: 0.875rem; margin-bottom: 1rem;">
+                    Scan this QR code with your phone to easily access this blog
+                </p>
+                <div class="qr-code" id="qrCode"></div>
+                <p style="font-size: 0.875rem; color: var(--color-text-tertiary); margin-top: 1rem;">
+                    subhashtatavarthi.github.io
+                </p>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <h3 style="text-align: center; margin-bottom: 1.5rem;">Connect with me</h3>
+                <div class="social-links" style="justify-content: center;">
+                    <a href="https://www.linkedin.com/in/subhash-tatavarthi-a7608014/" target="_blank"
+                        class="social-link" aria-label="LinkedIn">
+                        💼
+                    </a>
+                    <a href="https://medium.com/@t.subhash" target="_blank" class="social-link" aria-label="Medium">
+                        📝
+                    </a>
+                    <a href="https://github.com/subhashtatavarthi" target="_blank" class="social-link"
+                        aria-label="GitHub">
+                        💻
+                    </a>
+                    <a href="mailto:t.subhash@example.com" class="social-link" aria-label="Email">
+                        📧
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>&lt;Subhash /&gt;</h4>
+                    <p style="color: var(--color-text-tertiary); margin-top: 0.5rem;">
+                        Enterprise Architect & AI Thought Leader specializing in GenAI, cloud-native solutions, and
+                        enterprise decision intelligence.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#articles">Articles</a></li>
+                        <li><a href="#publications">Publications</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://medium.com/@t.subhash" target="_blank">Medium Blog</a></li>
+                        <li><a href="https://www.linkedin.com/in/subhash-tatavarthi-a7608014/" target="_blank">LinkedIn
+                                Profile</a></li>
+                        <li><a href="https://github.com/subhashtatavarthi" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Subhash Tatavarthi. All rights reserved. Built with ❤️ and modern web technologies.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/carousel.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/content.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+
+</html>

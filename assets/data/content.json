@@ -1,0 +1,100 @@
+{
+  "profile": {
+    "name": "Subhash Tatavarthi",
+    "title": "Enterprise Architect • AI Thought Leader",
+    "tagline": "Sharing insights on enterprise AI architecture, cloud-native solutions, and the journey of building intelligent systems at scale",
+    "bio": "I'm a software engineer and a content writer who enjoys turning complex problems into clear systems and clear stories. This blog is where I document experiments, wins, failures, and frameworks I'm testing in the real world.",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/subhash-tatavarthi-a7608014/",
+      "medium": "https://medium.com/@t.subhash",
+      "github": "https://github.com/subhashtatavarthi"
+    },
+    "skills": [
+      "Enterprise AI Architecture",
+      "Generative AI",
+      "Cloud-Native Solutions",
+      "Data Engineering",
+      "LLMs & Vector Databases",
+      "System Design",
+      "Technical Writing"
+    ]
+  },
+  "mediumArticles": [
+    {
+      "title": "From Data Engineering — AI : Transform yourselves in simple ways",
+      "excerpt": "A recent article published on Medium about Data Engineering to AI.",
+      "url": "https://medium.com/@t.subhash/from-data-engineering-ai-transform-yourselves-in-simple-ways-6178c4863021",
+      "date": "2025",
+      "tags": [
+        "Data Engineering",
+        "AI",
+        "Career"
+      ]
+    },
+    {
+      "title": "From Idea to Impact: How to Implement Generative AI for Any Business Use Case",
+      "excerpt": "A recent article published on Medium about Generative AI.",
+      "url": "https://medium.com/@t.subhash/from-idea-to-impact-how-to-implement-generative-ai-for-any-business-use-case-4ad5c58a07d4",
+      "date": "2025",
+      "tags": [
+        "Generative AI",
+        "Business",
+        "Implementation"
+      ]
+    },
+    {
+      "title": "Why Vector Databases Are the Secret Ingredient for Smarter Search",
+      "excerpt": "A recent article published on Medium about Generative AI.",
+      "url": "https://medium.com/@t.subhash/why-vector-databases-are-the-secret-ingredient-for-smarter-search-5fc8c3ccd64b",
+      "date": "2025",
+      "tags": [
+        "Vector Databases",
+        "Search",
+        "AI"
+      ]
+    }
+  ],
+  "publications": [
+    {
+      "title": "Scalable GenAI Systems for Enterprise Decision Intelligence: Architecture and Adoption Strategies",
+      "venue": "JISEM Journal",
+      "url": "https://www.jisem-journal.com/index.php/journal/article/view/11912",
+      "date": "2025-06-25",
+      "type": "Journal"
+    },
+    {
+      "title": "Domain Aware Prompt Engineering",
+      "venue": "WJAETS",
+      "url": "https://journalwjaets.com/sites/default/files/fulltext_pdf/WJAETS-2025-1249.pdf",
+      "date": "2025-07-25",
+      "type": "Journal"
+    },
+    {
+      "title": "Optimising Data Loss Prevention (DLP) Strategies in Cloud-Native Financial Platforms",
+      "venue": "JISEM Journal",
+      "url": "https://www.jisem-journal.com/index.php/journal/article/view/11983",
+      "date": "2025-07-25",
+      "type": "Journal"
+    }
+  ],
+  "media": [
+    {
+      "title": "Reframing Generative AI for the Enterprise: From Hype to Architecture-led Value",
+      "outlet": "APN Media",
+      "url": "https://www.apnnews.com/reframing-generative-ai-for-the-enterprise-from-hype-to-architecture-led-value/",
+      "date": "2025-06-23"
+    },
+    {
+      "title": "Most Enterprises Are Building GenAI Wrong—Here's What CTOs and CIOs Must Do Differently",
+      "outlet": "CXO Today",
+      "url": "https://cxotoday.com/specials/most-enterprises-are-building-genai-wrong-heres-what-ctos-and-cios-must-do-differently/",
+      "date": "2025-07-28"
+    },
+    {
+      "title": "From Dashboards to Decision Intelligence: Vision for GenAI in the Enterprise",
+      "outlet": "Hans India",
+      "url": "https://www.thehansindia.com/news/business/from-dashboards-to-decision-intelligencevision-for-genai-in-the-enterprise-996212",
+      "date": "2025-08-15"
+    }
+  ]
+}
