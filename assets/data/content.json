@@ -45,6 +45,15 @@
       "url": "#"
     }
   ],
+  "followers": {
+    "count": 1,
+    "list": [
+      {
+        "name": "Follower 1",
+        "avatar": "assets/images/follower_1.png"
+      }
+    ]
+  },
   "journey": [
     {
       "type": "experience",

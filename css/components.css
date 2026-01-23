@@ -810,6 +810,7 @@
         gap: var(--spacing-2xl);
     }
 }
+
 /* ================================
    STATS & COMMUNITY SECTION
    ================================ */
@@ -977,5 +978,61 @@
 
 .stats-grid-sidebar .stat-platform {
     font-size: 0.75rem;
-    margin-left: auto; /* Push label to right */
+    margin-left: auto;
+    /* Push label to right */
+}
+
+/* Followers Widget */
+.followers-card {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-lg);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+}
+
+.followers-count {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--color-text-primary);
+}
+
+.followers-label {
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.follower-avatars {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.follower-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--color-bg);
+    object-fit: cover;
+    margin-right: -10px;
+    /* Stack effect */
+}
+
+.btn-follow {
+    width: 100%;
+    background-color: #3b82f6;
+    /* Blue like the screenshot */
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-follow:hover {
+    background-color: #2563eb;
 }

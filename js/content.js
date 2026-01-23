@@ -11,11 +11,8 @@ async function loadContent() {
         renderSkills(data.profile.skills);
         renderJourney(data.journey);
         renderArticles(data.mediumArticles);
-        renderPublications(data.publications);
-        renderMedia(data.media);
         renderStats(data.socialStats);
-
-        renderStats(data.socialStats);
+        renderFollowers(data.followers);
 
     } catch (error) {
         console.error('Error loading content:', error);
@@ -185,6 +182,25 @@ function renderStats(stats) {
     `).join('');
 
     initScrollRevealForNew();
+}
+
+// ================================
+// FOLLOWERS RENDERING
+// ================================
+function renderFollowers(followersData) {
+    const container = document.getElementById('followersWidget');
+    if (!container || !followersData) return;
+
+    const { count, list } = followersData;
+
+    container.innerHTML = `
+        <h3 class="followers-count" style="margin-top: 0;">Followers</h3>
+        <span class="followers-label">Followers (${count})</span>
+        <div class="follower-avatars">
+            ${list.map(f => `<img src="${f.avatar}" alt="${f.name}" class="follower-avatar">`).join('')}
+        </div>
+        <button class="btn-follow" onclick="alert('Thanks for following!')">Follow</button>
+    `;
 }
 
 // ================================
