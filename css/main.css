@@ -191,7 +191,8 @@ a:hover {
    ================================ */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1440px;
+  /* Widened from 1200px */
   margin: 0 auto;
   padding: 0 var(--spacing-md);
 }
@@ -206,6 +207,27 @@ a:hover {
 
 .section-lg {
   padding: 4rem 0;
+}
+
+/* ================================
+   LAYOUT GRIDS (NEW)
+   ================================ */
+/* Dashboard Grid: Side-by-Side Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  /* 66% - 33% Split */
+  gap: var(--spacing-xl);
+  align-items: start;
+}
+
+/* Split Hero Layout */
+.hero-split {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: var(--spacing-2xl);
+  min-height: 80vh;
 }
 
 /* Flexbox Utilities */
@@ -534,4 +556,39 @@ a:hover {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+/* Large Profile Avatar for Split Hero */
+.profile-avatar-large {
+    width: 100%;
+    max-width: 400px;
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-primary);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    transition: transform var(--transition-slow);
+}
+
+.profile-avatar-large:hover {
+    transform: scale(1.02);
+}
+
+/* Responsive adjustments for layout */
+@media (max-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .hero-split, 
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    .hero-image-wrapper {
+        order: -1; /* Image on top for mobile */
+        text-align: center;
+    }
+    
+    .profile-avatar-large {
+        max-width: 250px;
+    }
 }

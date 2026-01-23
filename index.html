@@ -62,77 +62,93 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <div class="hero-content">
-                <img src="assets/images/profile.jpg" alt="Subhash Tatavarthi" class="profile-avatar" id="profileAvatar">
-                <h1 class="hero-title">Subhash Tatavarthi</h1>
-                <p class="hero-subtitle">Enterprise Architect • AI Thought Leader</p>
-                <p class="hero-subtitle">Sharing insights on enterprise AI architecture, cloud-native solutions, and the
-                    journey of building intelligent systems at scale</p>
-                <p class="hero-subtitle" style="margin-top: 1rem; font-weight: 500; color: var(--color-primary-light);">
-                    Open to new opportunities, teaching and mentorship</p>
+            <div class="hero-split">
+                <div class="hero-content-text">
+                    <h1 class="hero-title">Subhash Tatavarthi</h1>
+                    <p class="hero-subtitle">Enterprise Architect • AI Thought Leader</p>
+                    <p class="hero-subtitle">Sharing insights on enterprise AI architecture, cloud-native solutions, and
+                        the
+                        journey of building intelligent systems at scale</p>
+                    <p class="hero-subtitle"
+                        style="margin-top: 1rem; font-weight: 500; color: var(--color-primary-light);">
+                        Open to new opportunities, teaching and mentorship</p>
 
-                <div class="hero-cta">
-                    <a href="https://medium.com/@t.subhash" target="_blank" class="btn btn-primary">
-                        📝 Read on Medium
-                    </a>
-                    <a href="https://www.linkedin.com/in/subhash-tatavarthi-a7608014/" target="_blank"
-                        class="btn btn-outline">
-                        💼 Connect on LinkedIn
-                    </a>
-                    <a href="#contact" class="btn btn-glass">
-                        📧 Get in Touch
-                    </a>
+                    <div class="hero-cta">
+                        <a href="https://medium.com/@t.subhash" target="_blank" class="btn btn-primary">
+                            📝 Read on Medium
+                        </a>
+                        <a href="https://www.linkedin.com/in/subhash-tatavarthi-a7608014/" target="_blank"
+                            class="btn btn-outline">
+                            💼 Connect on LinkedIn
+                        </a>
+                        <a href="#contact" class="btn btn-glass">
+                            📧 Get in Touch
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-image-wrapper">
+                    <img src="assets/images/profile.jpg" alt="Subhash Tatavarthi" class="profile-avatar-large"
+                        id="profileAvatar">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="section" id="about">
+    <!-- Dashboard Section (About + Community) -->
+    <section class="section" id="dashboard">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title text-gradient">About Me</h2>
-                <p class="section-subtitle">Writing, building, and sharing the journey in public</p>
-            </div>
+            <div class="dashboard-grid">
 
-            <div class="profile-section glass-card">
-                <p style="font-size: 1.125rem; text-align: center; margin-bottom: 2rem;">
-                    I'm a software engineer and a content writer who enjoys turning complex problems into clear systems
-                    and clear stories.
-                    This blog is where I document experiments, wins, failures, and frameworks I'm testing in the real
-                    world.
-                </p>
+                <!-- Main Column: About & Skills -->
+                <div class="dashboard-main">
+                    <div class="section-header" style="text-align: left;">
+                        <h2 class="section-title text-gradient">About Me</h2>
+                        <p class="section-subtitle">Writing, building, and sharing the journey in public</p>
+                    </div>
 
-                <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-primary-light);">Technical
-                    Expertise</h3>
-                <div class="skills-grid" id="skillsGrid">
-                    <!-- Skills will be loaded dynamically -->
+                    <div class="profile-section glass-card">
+                        <p style="font-size: 1.125rem; margin-bottom: 2rem;">
+                            I'm a software engineer and a content writer who enjoys turning complex problems into clear
+                            systems
+                            and clear stories.
+                            This blog is where I document experiments, wins, failures, and frameworks I'm testing in the
+                            real
+                            world.
+                        </p>
+
+                        <h3 style="margin-bottom: 1.5rem; color: var(--color-primary-light);">Technical Expertise</h3>
+                        <div class="skills-grid" id="skillsGrid">
+                            <!-- Skills will be loaded dynamically -->
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Community & Stats Section -->
-    <section class="section" id="community">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title text-gradient">Community</h2>
-                <p class="section-subtitle">Stats & Community Engagement</p>
-            </div>
+                <!-- Sidebar Column: Community & Subscribe -->
+                <aside class="dashboard-sidebar">
+                    <div class="section-header" style="text-align: left;">
+                        <h2 class="section-title text-gradient">Community</h2>
+                        <p class="section-subtitle">Stats & Engagement</p>
+                    </div>
 
-            <div class="stats-grid" id="statsGrid">
-                <!-- Social Stats loaded dynamically -->
-            </div>
+                    <div class="stats-grid-sidebar" id="statsGrid">
+                        <!-- Social Stats loaded dynamically -->
+                    </div>
 
-            <div class="glass-card subscribe-card">
-                <div class="subscribe-content">
-                    <h3>Join the Newsletter</h3>
-                    <p>Get exclusive insights on AI architecture and enterprise tech directly in your inbox.</p>
-                </div>
-                <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
-                    <input type="email" placeholder="your@email.com" aria-label="Email address" required>
-                    <button type="submit" class="btn btn-primary">Subscribe</button>
-                </form>
+                    <div class="glass-card subscribe-card-sidebar">
+                        <div class="subscribe-content">
+                            <h3>Newsletter</h3>
+                            <p style="font-size: 0.9rem; margin-bottom: 1rem;">Get exclusive insights on AI architecture
+                                directly in your inbox.</p>
+                        </div>
+                        <form class="subscribe-form-sidebar" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                            <input type="email" placeholder="your@email.com" aria-label="Email address" required>
+                            <button type="submit" class="btn btn-primary btn-sm"
+                                style="width: 100%; margin-top: 0.5rem;">Subscribe</button>
+                        </form>
+                    </div>
+                </aside>
+
             </div>
         </div>
     </section>
