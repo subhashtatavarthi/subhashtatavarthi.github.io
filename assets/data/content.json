@@ -11,22 +11,64 @@
     },
     "skills": {
       "enterprise": [
-        "Enterprise AI Architecture",
-        "Generative AI",
-        "Cloud-Native Solutions",
-        "Data Engineering",
-        "LLMs & Vector Databases",
-        "System Design",
-        "Technical Writing"
+        {
+          "name": "Enterprise AI Architecture",
+          "icon": "fa-solid fa-sitemap"
+        },
+        {
+          "name": "Generative AI",
+          "icon": "fa-solid fa-robot"
+        },
+        {
+          "name": "Cloud-Native Solutions",
+          "icon": "fa-solid fa-cloud"
+        },
+        {
+          "name": "Data Engineering",
+          "icon": "fa-solid fa-database"
+        },
+        {
+          "name": "LLMs & Vector Databases",
+          "icon": "fa-solid fa-brain"
+        },
+        {
+          "name": "System Design",
+          "icon": "fa-solid fa-layer-group"
+        },
+        {
+          "name": "Technical Writing",
+          "icon": "fa-solid fa-pen-nib"
+        }
       ],
       "technical": [
-        "Python",
-        "SQL & PL/SQL",
-        "React.js",
-        "Next.js",
-        "Java / Spring Boot",
-        "Docker & Kubernetes",
-        "AWS / Azure"
+        {
+          "name": "Python",
+          "icon": "devicon-python-plain"
+        },
+        {
+          "name": "SQL & PL/SQL",
+          "icon": "devicon-postgresql-plain"
+        },
+        {
+          "name": "React.js",
+          "icon": "devicon-react-original"
+        },
+        {
+          "name": "Next.js",
+          "icon": "devicon-nextjs-original"
+        },
+        {
+          "name": "Java / Spring Boot",
+          "icon": "devicon-java-plain"
+        },
+        {
+          "name": "Docker & Kubernetes",
+          "icon": "devicon-kubernetes-plain"
+        },
+        {
+          "name": "AWS / Azure",
+          "icon": "devicon-amazonwebservices-plain-wordmark"
+        }
       ]
     }
   },

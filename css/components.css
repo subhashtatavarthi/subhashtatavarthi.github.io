@@ -1146,3 +1146,39 @@
         flex-wrap: nowrap; 
     }
 }
+/* ================================
+   SKILL ICONS
+   ================================ */
+.skill-icon {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-sm);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    transition: transform var(--transition-base);
+}
+
+.skill-item:hover .skill-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Specific styling for DevIcons if they don't support text-fill-color nicely */
+.devicon-python-plain,
+.devicon-react-original, 
+.devicon-nextjs-original,
+.devicon-java-plain,
+.devicon-docker-plain,
+.devicon-kubernetes-plain,
+.devicon-amazonwebservices-plain-wordmark,
+.devicon-postgresql-plain {
+    -webkit-text-fill-color: initial; /* Reset for proper colors */
+    color: var(--color-text-primary);
+}
+
+.devicon-python-plain { color: #3776AB; }
+.devicon-react-original { color: #61DAFB; }
+.devicon-nextjs-original { color: var(--color-text-primary); }
+.devicon-java-plain { color: #007396; }
+.devicon-postgresql-plain { color: #336791; }

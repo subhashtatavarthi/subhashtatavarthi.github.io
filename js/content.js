@@ -31,7 +31,8 @@ function renderSkills(skillsData) {
     if (enterpriseGrid && skillsData.enterprise) {
         enterpriseGrid.innerHTML = skillsData.enterprise.map(skill => `
             <div class="skill-item scroll-reveal">
-                <div class="skill-name">${skill}</div>
+                <i class="${skill.icon} skill-icon"></i>
+                <div class="skill-name">${skill.name}</div>
             </div>
         `).join('');
     }
@@ -39,7 +40,8 @@ function renderSkills(skillsData) {
     if (technicalGrid && skillsData.technical) {
         technicalGrid.innerHTML = skillsData.technical.map(skill => `
             <div class="skill-item scroll-reveal">
-                <div class="skill-name">${skill}</div>
+                <i class="${skill.icon} skill-icon"></i>
+                <div class="skill-name">${skill.name}</div>
             </div>
         `).join('');
     }
