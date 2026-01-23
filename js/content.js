@@ -11,6 +11,8 @@ async function loadContent() {
         renderSkills(data.profile.skills);
         renderJourney(data.journey);
         renderArticles(data.mediumArticles);
+        renderPublications(data.publications); // Added missing call
+        renderMedia(data.media); // Added missing call
         renderStats(data.socialStats);
         renderFollowers(data.followers);
 
