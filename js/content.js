@@ -9,6 +9,14 @@ async function loadContent() {
         const data = await response.json();
 
         renderSkills(data.profile.skills);
+
+        // Render Profile Avatar (if defined in content.json and not overridden by local storage)
+        if (data.profile.avatar && !localStorage.getItem('profilePicture')) {
+            const profileAvatar = document.getElementById('profileAvatar');
+            if (profileAvatar) {
+                profileAvatar.src = data.profile.avatar;
+            }
+        }
         renderJourney(data.journey);
         renderArticles(data.mediumArticles);
         renderPublications(data.publications); // Added missing call
