@@ -8,10 +8,10 @@ function initProfilePicture() {
     if (!profileAvatar) return;
 
     // Load saved profile picture from localStorage
-    const savedImage = localStorage.getItem('profilePicture_v2');
-    if (savedImage) {
-        profileAvatar.src = savedImage;
-    }
+    // const savedImage = localStorage.getItem('profilePicture_v2');
+    // if (savedImage) {
+    //     profileAvatar.src = savedImage;
+    // }
 
     // Make profile picture clickable to upload new image
     profileAvatar.style.cursor = 'pointer';
