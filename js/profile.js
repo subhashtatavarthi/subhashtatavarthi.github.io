@@ -8,7 +8,7 @@ function initProfilePicture() {
     if (!profileAvatar) return;
 
     // Load saved profile picture from localStorage
-    const savedImage = localStorage.getItem('profilePicture');
+    const savedImage = localStorage.getItem('profilePicture_v2');
     if (savedImage) {
         profileAvatar.src = savedImage;
     }
@@ -89,7 +89,7 @@ function handleImageUpload(file) {
             const resizedImage = resizeImage(img, 300, 300);
 
             // Save to localStorage
-            localStorage.setItem('profilePicture', resizedImage);
+            localStorage.setItem('profilePicture_v2', resizedImage);
 
             // Update profile picture
             const profileAvatar = document.getElementById('profileAvatar');
