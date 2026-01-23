@@ -36,7 +36,12 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container">
-            <a href="#" class="navbar-brand">&lt;Subhash /&gt;</a>
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search articles, topics..."
+                    aria-label="Search">
+                <div id="searchResults" class="search-results"></div>
+            </div>
 
             <ul class="navbar-menu" id="navbarMenu">
                 <li><a href="#home" class="navbar-link active">Home</a></li>
@@ -303,7 +308,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>&lt;Subhash /&gt;</h4>
+                    <h4>Subhash Tatavarthi</h4>
                     <p style="color: var(--color-text-tertiary); margin-top: 0.5rem;">
                         Enterprise Architect & AI Thought Leader specializing in GenAI, cloud-native solutions, and
                         enterprise decision intelligence.
@@ -343,6 +348,7 @@
     <script src="js/main.js"></script>
     <script src="js/content.js"></script>
     <script src="js/profile.js"></script>
+    <script src="js/search.js"></script>
 </body>
 
 </html>
