@@ -11,9 +11,6 @@ function initProfilePicture() {
     const savedImage = localStorage.getItem('profilePicture');
     if (savedImage) {
         profileAvatar.src = savedImage;
-    } else {
-        // Use a default gradient placeholder
-        profileAvatar.src = createDefaultAvatar();
     }
 
     // Make profile picture clickable to upload new image
