@@ -13,6 +13,10 @@ async function loadContent() {
         renderArticles(data.mediumArticles);
         renderPublications(data.publications);
         renderMedia(data.media);
+        renderStats(data.socialStats);
+
+        renderStats(data.socialStats);
+
     } catch (error) {
         console.error('Error loading content:', error);
     }
@@ -163,6 +167,24 @@ function renderMedia(mediaItems) {
             indicators: 'mediaIndicators'
         });
     }
+}
+
+// ================================
+// STATS RENDERING
+// ================================
+function renderStats(stats) {
+    const statsGrid = document.getElementById('statsGrid');
+    if (!statsGrid || !stats) return;
+
+    statsGrid.innerHTML = stats.map(stat => `
+        <a href="${stat.url}" target="_blank" class="stat-card scroll-reveal">
+            <span class="stat-icon">${stat.icon}</span>
+            <span class="stat-count">${stat.count}</span>
+            <span class="stat-platform">${stat.platform}</span>
+        </a>
+    `).join('');
+
+    initScrollRevealForNew();
 }
 
 // ================================

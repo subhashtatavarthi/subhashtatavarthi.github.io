@@ -19,6 +19,26 @@
       "Technical Writing"
     ]
   },
+  "socialStats": [
+    {
+      "platform": "LinkedIn",
+      "count": "15K+",
+      "icon": "💼",
+      "url": "https://www.linkedin.com/in/subhash-tatavarthi-a7608014/"
+    },
+    {
+      "platform": "Medium",
+      "count": "5K+",
+      "icon": "📝",
+      "url": "https://medium.com/@t.subhash"
+    },
+    {
+      "platform": "GitHub",
+      "count": "2K+",
+      "icon": "💻",
+      "url": "https://github.com/subhashtatavarthi"
+    }
+  ],
   "journey": [
     {
       "type": "experience",
