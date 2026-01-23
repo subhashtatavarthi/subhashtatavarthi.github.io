@@ -22,29 +22,35 @@ async function loadContent() {
 }
 
 // ================================
-// SKILLS RENDERING
+// SKILLS RENDERING (BENTO GRID)
 // ================================
 function renderSkills(skillsData) {
-    const enterpriseGrid = document.getElementById('enterpriseSkillsGrid');
-    const technicalGrid = document.getElementById('technicalSkillsGrid');
+    const skillsContainer = document.getElementById('skillsContainer');
+    if (!skillsContainer || !Array.isArray(skillsData)) return;
 
-    if (enterpriseGrid && skillsData.enterprise) {
-        enterpriseGrid.innerHTML = skillsData.enterprise.map(skill => `
-            <div class="skill-item scroll-reveal">
-                <i class="${skill.icon} skill-icon"></i>
-                <div class="skill-name">${skill.name}</div>
-            </div>
-        `).join('');
-    }
-
-    if (technicalGrid && skillsData.technical) {
-        technicalGrid.innerHTML = skillsData.technical.map(skill => `
-            <div class="skill-item scroll-reveal">
-                <i class="${skill.icon} skill-icon"></i>
-                <div class="skill-name">${skill.name}</div>
-            </div>
-        `).join('');
-    }
+    skillsContainer.innerHTML = `
+        <div class="bento-grid">
+            ${skillsData.map(category => `
+                <div class="bento-card scroll-reveal">
+                    <div class="bento-header">
+                        <i class="${category.icon} bento-icon"></i>
+                        <div class="bento-title-group">
+                            <h3 class="bento-title">${category.category}</h3>
+                            <p class="bento-desc">${category.description}</p>
+                        </div>
+                    </div>
+                    <div class="bento-content">
+                        ${category.items.map(item => `
+                            <div class="skill-chip">
+                                <i class="${item.icon}"></i>
+                                <span>${item.name}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
 
     // Re-initialize scroll reveal for new elements
     initScrollRevealForNew();

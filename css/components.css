@@ -1182,3 +1182,100 @@
 .devicon-nextjs-original { color: var(--color-text-primary); }
 .devicon-java-plain { color: #007396; }
 .devicon-postgresql-plain { color: #336791; }
+/* ================================
+   BENTO GRID LAYOUT
+   ================================ */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.bento-card {
+    background: var(--color-bg-tertiary); /* Darker card background */
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+}
+
+.bento-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-lg);
+}
+
+.bento-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: var(--spacing-md);
+}
+
+.bento-icon {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    background: rgba(255, 215, 0, 0.1);
+    padding: 0.75rem;
+    border-radius: var(--radius-lg);
+}
+
+.bento-title {
+    font-size: 1.125rem;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.bento-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    line-height: 1.4;
+}
+
+.bento-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.skill-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.skill-chip:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-text-primary);
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+}
+
+.skill-chip i {
+    font-size: 1rem;
+    color: var(--color-primary-light);
+}
+
+/* Specific styling for DevIcons inside chips to maintain original brand colors if desired, 
+   or keep them cohesive with the theme */
+.skill-chip .devicon-python-plain { color: #3776AB; }
+.skill-chip .devicon-react-original { color: #61DAFB; }
+/* ... add other specific colors if needed, otherwise they inherit primary-light */
+
+@media (max-width: 480px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+}
