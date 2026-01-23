@@ -9,15 +9,26 @@
       "medium": "https://medium.com/@t.subhash",
       "github": "https://github.com/subhashtatavarthi"
     },
-    "skills": [
-      "Enterprise AI Architecture",
-      "Generative AI",
-      "Cloud-Native Solutions",
-      "Data Engineering",
-      "LLMs & Vector Databases",
-      "System Design",
-      "Technical Writing"
-    ]
+    "skills": {
+      "enterprise": [
+        "Enterprise AI Architecture",
+        "Generative AI",
+        "Cloud-Native Solutions",
+        "Data Engineering",
+        "LLMs & Vector Databases",
+        "System Design",
+        "Technical Writing"
+      ],
+      "technical": [
+        "Python",
+        "SQL & PL/SQL",
+        "React.js",
+        "Next.js",
+        "Java / Spring Boot",
+        "Docker & Kubernetes",
+        "AWS / Azure"
+      ]
+    }
   },
   "socialStats": [
     {

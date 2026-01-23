@@ -24,15 +24,25 @@ async function loadContent() {
 // ================================
 // SKILLS RENDERING
 // ================================
-function renderSkills(skills) {
-    const skillsGrid = document.getElementById('skillsGrid');
-    if (!skillsGrid) return;
+function renderSkills(skillsData) {
+    const enterpriseGrid = document.getElementById('enterpriseSkillsGrid');
+    const technicalGrid = document.getElementById('technicalSkillsGrid');
 
-    skillsGrid.innerHTML = skills.map(skill => `
-        <div class="skill-item scroll-reveal">
-            <div class="skill-name">${skill}</div>
-        </div>
-    `).join('');
+    if (enterpriseGrid && skillsData.enterprise) {
+        enterpriseGrid.innerHTML = skillsData.enterprise.map(skill => `
+            <div class="skill-item scroll-reveal">
+                <div class="skill-name">${skill}</div>
+            </div>
+        `).join('');
+    }
+
+    if (technicalGrid && skillsData.technical) {
+        technicalGrid.innerHTML = skillsData.technical.map(skill => `
+            <div class="skill-item scroll-reveal">
+                <div class="skill-name">${skill}</div>
+            </div>
+        `).join('');
+    }
 
     // Re-initialize scroll reveal for new elements
     initScrollRevealForNew();
