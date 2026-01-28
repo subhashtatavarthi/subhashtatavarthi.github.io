@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://subhashtatavarthi.github.io/sitemap.xml
