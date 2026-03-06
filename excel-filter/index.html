@@ -6,9 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Monthly Report Builder</title>
   <meta name="description"
-    content="Upload your master Excel sales file, filter by product category, and download a clean formatted report instantly — no server needed." />
+    content="Upload your master Excel sales file, filter by product category, and download a clean formatted report instantly." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <!-- SheetJS: reads & writes Excel entirely in the browser -->
   <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
   <style>
     *,
@@ -16,12 +15,12 @@
     *::after {
       box-sizing: border-box;
       margin: 0;
-      padding: 0;
+      padding: 0
     }
 
     :root {
       --bg: #e0f4ff;
-      --surface: #ffffff;
+      --surface: #fff;
       --surface2: #f0f9ff;
       --border: #bae6fd;
       --accent: #0284c7;
@@ -41,13 +40,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 20px 80px;
+      padding: 40px 20px 80px
     }
 
-    /* ── Header ── */
+    /* Header */
     .header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 40px
     }
 
     .badge {
@@ -63,7 +62,7 @@
       text-transform: uppercase;
       padding: 5px 14px;
       border-radius: 100px;
-      margin-bottom: 16px;
+      margin-bottom: 16px
     }
 
     h1 {
@@ -73,7 +72,7 @@
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
+      margin-bottom: 10px
     }
 
     .header p {
@@ -81,10 +80,10 @@
       font-size: 15px;
       max-width: 480px;
       margin: 0 auto;
-      line-height: 1.6;
+      line-height: 1.6
     }
 
-    /* ── Card ── */
+    /* Card */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -92,7 +91,7 @@
       padding: 32px;
       width: 100%;
       max-width: 720px;
-      margin-bottom: 28px;
+      margin-bottom: 20px
     }
 
     .card-title {
@@ -104,10 +103,10 @@
       margin-bottom: 20px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 8px
     }
 
-    /* ── Drop Zone ── */
+    /* Drop Zone */
     .drop-zone {
       border: 2px dashed var(--border);
       border-radius: 10px;
@@ -115,13 +114,13 @@
       text-align: center;
       cursor: pointer;
       transition: all .25s;
-      position: relative;
+      position: relative
     }
 
     .drop-zone:hover,
     .drop-zone.dragover {
       border-color: var(--accent);
-      background: #bae6fd30;
+      background: #bae6fd30
     }
 
     .drop-zone input[type="file"] {
@@ -130,7 +129,7 @@
       opacity: 0;
       cursor: pointer;
       width: 100%;
-      height: 100%;
+      height: 100%
     }
 
     .drop-icon {
@@ -143,18 +142,18 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 14px;
-      font-size: 22px;
+      font-size: 22px
     }
 
     .drop-zone h3 {
       font-size: 15px;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 6px
     }
 
     .drop-zone p {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--muted)
     }
 
     .file-chosen {
@@ -167,117 +166,20 @@
       padding: 10px 16px;
       margin-top: 14px;
       font-size: 13px;
-      color: var(--green);
+      color: var(--green)
     }
 
-    /* ── File Info Panel ── */
-    #file-info {
-      display: none;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px 32px;
-      width: 100%;
-      max-width: 720px;
-      margin-bottom: 28px;
-    }
-
-    #file-info h4 {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px 24px;
-      margin-bottom: 18px;
-    }
-
-    @media(max-width:520px) {
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .info-item {
-      font-size: 13px;
-    }
-
-    .info-item span {
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .col-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .col-tag {
-      padding: 3px 10px;
-      border-radius: 100px;
-      font-size: 11.5px;
-      font-weight: 500;
-    }
-
-    .col-tag.ok {
-      background: #d1fae5;
-      border: 1px solid #6ee7b7;
-      color: #047857;
-    }
-
-    .col-tag.mis {
-      background: #fee2e2;
-      border: 1px solid #fca5a5;
-      color: #dc2626;
-    }
-
-    .col-tag.ext {
-      background: #f0f9ff;
-      border: 1px solid #bae6fd;
-      color: #0369a1;
-    }
-
-    #match-banner {
-      margin-top: 14px;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    #match-banner.all-ok {
-      background: #d1fae5;
-      border: 1px solid #6ee7b7;
-      color: #047857;
-    }
-
-    #match-banner.missing {
-      background: #fff7ed;
-      border: 1px solid #fdba74;
-      color: #c2410c;
-    }
-
-    /* ── Form ── */
+    /* Form */
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      margin-top: 20px;
+      margin-top: 20px
     }
 
     @media(max-width:520px) {
       .form-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr
       }
     }
 
@@ -288,11 +190,12 @@
       color: var(--muted);
       margin-bottom: 6px;
       letter-spacing: .04em;
-      text-transform: uppercase;
+      text-transform: uppercase
     }
 
     input[type="text"],
-    input[type="number"] {
+    input[type="number"],
+    select {
       width: 100%;
       background: var(--surface2);
       border: 1px solid var(--border);
@@ -302,19 +205,20 @@
       color: var(--text);
       font-family: 'Inter', sans-serif;
       transition: border-color .2s;
-      outline: none;
+      outline: none
     }
 
-    input:focus {
-      border-color: var(--accent);
+    input:focus,
+    select:focus {
+      border-color: var(--accent)
     }
 
-    /* ── Pills ── */
+    /* Pills */
     .suggestions {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 10px;
+      margin-top: 10px
     }
 
     .pill {
@@ -324,50 +228,50 @@
       font-weight: 500;
       cursor: pointer;
       border: 1px solid transparent;
-      transition: all .18s;
+      transition: all .18s
     }
 
     .pill:hover {
       opacity: .82;
-      transform: translateY(-1px);
+      transform: translateY(-1px)
     }
 
     .pill-blue {
       background: #e0f2fe;
       border-color: #7dd3fc;
-      color: #0369a1;
+      color: #0369a1
     }
 
     .pill-purple {
       background: #ede9fe;
       border-color: #c4b5fd;
-      color: #6d28d9;
+      color: #6d28d9
     }
 
     .pill-teal {
       background: #d1fae5;
       border-color: #6ee7b7;
-      color: #047857;
+      color: #047857
     }
 
     .pill-orange {
       background: #fff7ed;
       border-color: #fdba74;
-      color: #c2410c;
+      color: #c2410c
     }
 
     .pill-rose {
       background: #fff1f2;
       border-color: #fda4af;
-      color: #be123c;
+      color: #be123c
     }
 
-    /* ── Buttons ── */
+    /* Buttons */
     .btn-row {
       display: flex;
       gap: 12px;
       margin-top: 24px;
-      flex-wrap: wrap;
+      flex-wrap: wrap
     }
 
     button {
@@ -381,49 +285,55 @@
       font-family: 'Inter', sans-serif;
       cursor: pointer;
       border: none;
-      transition: all .2s;
+      transition: all .2s
     }
 
     .btn-primary {
       background: linear-gradient(135deg, #0284c7, #0369a1);
       color: #fff;
-      flex: 1;
+      flex: 1
     }
 
     .btn-primary:hover {
       opacity: .88;
-      transform: translateY(-1px);
+      transform: translateY(-1px)
     }
 
     .btn-ghost {
       background: #f0f9ff;
       border: 1px solid #bae6fd;
-      color: #4b7a9a;
+      color: #4b7a9a
     }
 
     .btn-ghost:hover {
       border-color: #0284c7;
-      color: #0c2a3e;
+      color: #0c2a3e
     }
 
     .btn-green {
       background: linear-gradient(135deg, #22d3a0, #059669);
       color: #fff;
-      flex: 1;
+      flex: 1
     }
 
     .btn-green:hover {
       opacity: .88;
-      transform: translateY(-1px);
+      transform: translateY(-1px)
+    }
+
+    .btn-sm {
+      padding: 7px 14px;
+      font-size: 12px;
+      border-radius: 8px
     }
 
     button:disabled {
       opacity: .45;
       cursor: not-allowed;
-      transform: none !important;
+      transform: none !important
     }
 
-    /* ── Status ── */
+    /* Status */
     #status {
       display: none;
       align-items: center;
@@ -432,42 +342,418 @@
       border-radius: 9px;
       font-size: 13px;
       font-weight: 500;
-      margin-top: 20px;
+      margin-top: 20px
     }
 
     #status.info {
       background: #e0f2fe;
       border: 1px solid #7dd3fc;
-      color: #0369a1;
+      color: #0369a1
     }
 
     #status.success {
       background: #d1fae5;
       border: 1px solid #6ee7b7;
-      color: #047857;
+      color: #047857
     }
 
     #status.error {
       background: #fee2e2;
       border: 1px solid #fca5a5;
-      color: #dc2626;
+      color: #dc2626
     }
 
-    /* ── Preview Table ── */
-    #preview-wrap {
+    /* ── Smart Scan Panel ── */
+    #scan-panel {
       display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      width: 100%;
+      max-width: 720px;
+      margin-bottom: 20px
+    }
+
+    #scan-panel h4 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .scan-result {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px
+    }
+
+    .scan-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600
+    }
+
+    .scan-badge.ok {
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #047857
+    }
+
+    .scan-badge.warn {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      color: #c2410c
+    }
+
+    .scan-override {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .scan-override select {
+      width: auto;
+      padding: 6px 10px;
+      font-size: 13px
+    }
+
+    #scan-rows-detail {
+      display: none;
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden
+    }
+
+    .scan-row-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      font-size: 12px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .scan-row-item:last-child {
+      border-bottom: none
+    }
+
+    .scan-row-item.best {
+      background: #f0fdf4
+    }
+
+    .scan-row-num {
+      font-weight: 600;
+      width: 24px;
+      color: var(--muted)
+    }
+
+    .scan-row-preview {
+      flex: 1;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .scan-score {
+      font-weight: 600;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 100px
+    }
+
+    .scan-score.high {
+      background: #d1fae5;
+      color: #047857
+    }
+
+    .scan-score.mid {
+      background: #fff7ed;
+      color: #c2410c
+    }
+
+    .scan-score.low {
+      background: #f1f5f9;
+      color: #64748b
+    }
+
+    .toggle-link {
+      font-size: 12px;
+      color: var(--accent);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px
+    }
+
+    /* Profile bar */
+    .profile-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap
+    }
+
+    .profile-bar label {
+      margin: 0;
+      white-space: nowrap
+    }
+
+    .profile-bar select {
+      flex: 1;
+      min-width: 160px
+    }
+
+    .profile-applied {
+      display: none;
+      font-size: 12px;
+      padding: 4px 10px;
+      background: #e0f2fe;
+      border: 1px solid #7dd3fc;
+      color: #0369a1;
+      border-radius: 100px;
+      font-weight: 500
+    }
+
+    /* ── Column Mapper ── */
+    #mapper-panel {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      width: 100%;
+      max-width: 720px;
+      margin-bottom: 20px
+    }
+
+    #mapper-panel h4 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .mapper-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px
+    }
+
+    .mapper-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px
+    }
+
+    .mapper-table th {
+      text-align: left;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      background: #f0f9ff;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .mapper-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #e0f0fa
+    }
+
+    .mapper-table tr:last-child td {
+      border-bottom: none
+    }
+
+    .mapper-table select {
+      padding: 6px 10px;
+      font-size: 13px;
+      width: 100%
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px;
+      border-radius: 100px;
+      font-size: 11.5px;
+      font-weight: 500
+    }
+
+    .status-pill.ok {
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #047857
+    }
+
+    .status-pill.fuzzy {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      color: #c2410c
+    }
+
+    .status-pill.miss {
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #dc2626
+    }
+
+    .mapper-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .profile-name-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1
+    }
+
+    .profile-name-wrap input[type="text"] {
+      padding: 8px 12px;
+      font-size: 13px
+    }
+
+    /* ── File Summary ── */
+    #file-info {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      width: 100%;
+      max-width: 720px;
+      margin-bottom: 20px
+    }
+
+    #file-info h4 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px 24px;
+      margin-bottom: 16px
+    }
+
+    @media(max-width:520px) {
+      .info-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .info-item {
+      font-size: 13px
+    }
+
+    .info-item span {
+      font-weight: 600;
+      color: var(--text)
+    }
+
+    .col-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px
+    }
+
+    .col-tag {
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 11.5px;
+      font-weight: 500
+    }
+
+    .col-tag.ok {
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #047857
+    }
+
+    .col-tag.mis {
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #dc2626
+    }
+
+    .col-tag.ext {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      color: #0369a1
+    }
+
+    #match-banner {
+      margin-top: 14px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500
+    }
+
+    #match-banner.all-ok {
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #047857
+    }
+
+    #match-banner.missing {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      color: #c2410c
+    }
+
+    /* Preview Table */
+    #preview-wrap {
+      display: none
     }
 
     .table-scroll {
       overflow-x: auto;
       border-radius: 9px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border)
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12.5px;
+      font-size: 12.5px
     }
 
     thead th {
@@ -480,15 +766,15 @@
       text-transform: uppercase;
       color: var(--muted);
       border-bottom: 1px solid var(--border);
-      white-space: nowrap;
+      white-space: nowrap
     }
 
     tbody tr {
-      transition: background .15s;
+      transition: background .15s
     }
 
     tbody tr:hover {
-      background: #f0f9ff;
+      background: #f0f9ff
     }
 
     tbody td {
@@ -497,44 +783,69 @@
       white-space: nowrap;
       max-width: 220px;
       overflow: hidden;
-      text-overflow: ellipsis;
+      text-overflow: ellipsis
     }
 
     tbody tr:last-child td {
-      border-bottom: none;
+      border-bottom: none
     }
 
     .row-count {
       font-size: 12px;
       color: var(--muted);
       margin-top: 10px;
-      text-align: right;
+      text-align: right
     }
 
     .row-count span {
       color: var(--green);
-      font-weight: 600;
+      font-weight: 600
     }
 
-    /* ── Spinner ── */
+    /* Spinner */
     .spinner {
       width: 16px;
       height: 16px;
       border: 2px solid #ffffff40;
       border-top-color: #fff;
       border-radius: 50%;
-      animation: spin .6s linear infinite;
+      animation: spin .6s linear infinite
     }
 
     @keyframes spin {
       to {
-        transform: rotate(360deg);
+        transform: rotate(360deg)
       }
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: #0c2a3e;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0;
+      transition: all .3s;
+      pointer-events: none;
+      z-index: 999
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0)
     }
   </style>
 </head>
 
 <body>
+
+  <div id="toast"></div>
 
   <div class="header">
     <div class="badge">
@@ -544,16 +855,27 @@
       Smart Excel Filter
     </div>
     <h1>Monthly Report Builder</h1>
-    <p>Upload your master file, choose a category, and download a perfectly formatted report in seconds.</p>
+    <p>Upload your master file, choose a category, and download a perfectly formatted report — any format, automatically
+      handled.</p>
   </div>
 
-  <!-- Step 1: Upload -->
+  <!-- ── Step 1: Upload ── -->
   <div class="card">
     <div class="card-title">
       <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
       </svg>
       Step 1 — Upload Master File
+    </div>
+
+    <!-- Profile bar -->
+    <div class="profile-bar">
+      <label>Format Profile</label>
+      <select id="profileSelect" onchange="applyProfile()">
+        <option value="">— Auto Detect —</option>
+      </select>
+      <button class="btn-ghost btn-sm" onclick="deleteProfile()">🗑 Delete</button>
+      <span class="profile-applied" id="profileApplied"></span>
     </div>
 
     <div class="drop-zone" id="dropZone">
@@ -563,17 +885,56 @@
       <p>or click to browse — .xlsx, .xls supported</p>
       <div class="file-chosen" id="fileChosen">✅ <span id="fileName"></span></div>
     </div>
+  </div>
 
-    <div class="form-row" style="margin-top:20px">
-      <div>
-        <label>Header Row (0 = first row)</label>
-        <input type="number" id="headerRow" value="0" min="0" max="20" />
-        <p style="font-size:11px;color:var(--muted);margin-top:6px;">Use 2 if data starts on row 3 (like FEB file)</p>
+  <!-- ── Smart Scan Result ── -->
+  <div id="scan-panel">
+    <h4>
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      Auto-Detect Result
+    </h4>
+    <div class="scan-result">
+      <div id="scan-badge" class="scan-badge ok"></div>
+      <div class="scan-override">
+        <span>Override row:</span>
+        <select id="scanOverride" onchange="onOverrideChange()"></select>
+        <button class="btn-ghost btn-sm" onclick="toggleScanDetails()">Show scan details</button>
+      </div>
+    </div>
+    <div id="scan-rows-detail"></div>
+  </div>
+
+  <!-- ── Column Mapper ── -->
+  <div id="mapper-panel">
+    <h4>
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+      </svg>
+      Column Mapping
+    </h4>
+    <p class="mapper-note">Some columns couldn't be auto-matched. Review and confirm the mapping below:</p>
+    <table class="mapper-table">
+      <thead>
+        <tr>
+          <th>Required Column</th>
+          <th>Matched to (your file)</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="mapperBody"></tbody>
+    </table>
+    <div class="mapper-actions">
+      <button class="btn-primary btn-sm" onclick="applyMapping()">✅ Apply Mapping</button>
+      <div class="profile-name-wrap">
+        <input type="text" id="profileNameInput" placeholder="Profile name (e.g. FEB Format)" style="flex:1" />
+        <button class="btn-ghost btn-sm" onclick="saveProfile()">💾 Save as Profile</button>
       </div>
     </div>
   </div>
 
-  <!-- File Info Panel (shown immediately after upload) -->
+  <!-- ── File Summary ── -->
   <div id="file-info">
     <h4>
       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -584,16 +945,18 @@
     </h4>
     <div class="info-grid">
       <div class="info-item">📄 Sheet: <span id="info-sheet"></span></div>
-      <div class="info-item">📊 Data rows: <span id="info-rows"></span></div>
-      <div class="info-item">🗂 Total columns: <span id="info-colcount"></span></div>
+      <div class="info-item">📊 Rows: <span id="info-rows"></span></div>
+      <div class="info-item">🗂 Columns: <span id="info-colcount"></span></div>
     </div>
     <div
       style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">
-      Columns detected</div>
+      Resolved Columns</div>
     <div class="col-tags" id="info-cols"></div>
     <div id="match-banner"></div>
   </div>
-  <div class="card">
+
+  <!-- ── Step 2: Filter & Download ── -->
+  <div class="card" id="filter-card" style="display:none">
     <div class="card-title">
       <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path
@@ -604,7 +967,6 @@
 
     <label>Category Keyword</label>
     <input type="text" id="categoryInput" placeholder="e.g. HOME THEATRE, LED, WASHING MACHINE..." />
-
     <div class="suggestions">
       <span class="pill pill-blue" onclick="setPill('HOME THEATRE')">🎬 Home Theatre</span>
       <span class="pill pill-purple" onclick="setPill('LED')">📺 LED TV</span>
@@ -614,15 +976,15 @@
     </div>
 
     <div class="btn-row">
-      <button class="btn-ghost" onclick="doPreview()" id="previewBtn" disabled>👁 Preview (first 20 rows)</button>
-      <button class="btn-primary" onclick="doDownload()" id="downloadBtn" disabled>
+      <button class="btn-ghost" onclick="doPreview()" id="previewBtn">👁 Preview (first 20)</button>
+      <button class="btn-primary" onclick="doDownload()" id="downloadBtn">
         <span id="downloadLabel">⬇ Download Excel</span>
       </button>
     </div>
     <div id="status"></div>
   </div>
 
-  <!-- Step 3: Preview -->
+  <!-- ── Preview ── -->
   <div class="card" id="preview-wrap">
     <div class="card-title">
       <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -644,32 +1006,43 @@
   </div>
 
   <script>
-    // ─── Constants ───────────────────────────────────────────────────────────────
+    // ════════════════════════════════════════════════════════════════════
+    // CONSTANTS
+    // ════════════════════════════════════════════════════════════════════
     const REQUIRED_COLS = ["ItemName", "Model", "Category", "Brand", "Branch", "Qty", "Rate", "NetCash"];
-    const ALIASES = {
-      "SOUNDBAR": "HOME THEATRE",
-      "SOUND BAR": "HOME THEATRE",
-      "HOME THEATER": "HOME THEATRE",
-      "HOME THEATRE": "HOME THEATRE",
-      "LED": "LED",
-      "TELEVISION": "LED",
-      "TV": "LED",
+    const CAT_ALIASES = {
+      "SOUNDBAR": "HOME THEATRE", "SOUND BAR": "HOME THEATRE", "HOME THEATER": "HOME THEATRE", "HOME THEATRE": "HOME THEATRE",
+      "LED": "LED", "TELEVISION": "LED", "TV": "LED"
+    };
+    // Fuzzy alias dictionary: variations → canonical REQUIRED_COL name
+    const COL_ALIASES = {
+      ItemName: ["item name", "item_name", "itemname", "product name", "product", "item"],
+      Model: ["model no", "model number", "model_no", "modelno"],
+      Category: ["cat", "category name", "cat name", "type"],
+      Brand: ["brand name", "make", "manufacturer"],
+      Branch: ["branch name", "branchname", "branch_name", "store", "location", "branchcode"],
+      Qty: ["quantity", "qty sold", "units", "unit", "no of units", "nos"],
+      Rate: ["rate", "unit rate", "price", "mrp", "unit price", "selling price"],
+      NetCash: ["net cash", "net amount", "net amt", "netamount", "net", "netsales", "net sales", "amount"]
     };
 
-    // ─── State ───────────────────────────────────────────────────────────────────
-    let workbook = null;    // raw XLSX workbook
-    let cachedData = null;    // last processed/filtered rows + columns
+    const PROFILES_KEY = "mrb_profiles_v2";
 
-    // ─── DOM refs ────────────────────────────────────────────────────────────────
+    // ════════════════════════════════════════════════════════════════════
+    // STATE
+    // ════════════════════════════════════════════════════════════════════
+    let workbook = null;
+    let detectedHeaderRow = 0;
+    let resolvedMapping = {};   // REQUIRED_COL → actual column in file (or null)
+    let cachedData = null;
+    let rawHeaders = [];     // all headers from detected row
+    let allRawRows = [];     // raw data rows (string arrays)
+
+    // ════════════════════════════════════════════════════════════════════
+    // FILE HANDLING
+    // ════════════════════════════════════════════════════════════════════
     const fileInput = document.getElementById('fileInput');
     const dropZone = document.getElementById('dropZone');
-    const fileChosen = document.getElementById('fileChosen');
-    const fileNameEl = document.getElementById('fileName');
-    const previewBtn = document.getElementById('previewBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const statusEl = document.getElementById('status');
-
-    // ─── File handling ───────────────────────────────────────────────────────────
     dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
     dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
     dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); });
@@ -680,202 +1053,397 @@
       reader.onload = e => {
         try {
           workbook = XLSX.read(new Uint8Array(e.target.result), { type: 'array' });
-          fileNameEl.textContent = f.name;
-          fileChosen.style.display = 'flex';
-          previewBtn.disabled = false;
-          downloadBtn.disabled = false;
-          showStatus('info', `✅ Loaded: ${f.name} (${(f.size / 1024).toFixed(1)} KB)`);
-
-          // ── Instant column inspection ──────────────────────────────────────
-          const headerRow = parseInt(document.getElementById('headerRow').value) || 0;
-          const sheetName = workbook.SheetNames[0];
-          const sheet = workbook.Sheets[sheetName];
-          const raw = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
-
-          if (raw.length > headerRow) {
-            const detectedCols = raw[headerRow].map(h => String(h).trim()).filter(Boolean);
-            const dataRows = raw.slice(headerRow + 1).filter(r => r.some(c => c !== '')).length;
-
-            document.getElementById('info-sheet').textContent = sheetName;
-            document.getElementById('info-rows').textContent = dataRows.toLocaleString();
-            document.getElementById('info-colcount').textContent = detectedCols.length;
-
-            // Tag each detected column
-            const tagsEl = document.getElementById('info-cols');
-            tagsEl.innerHTML = detectedCols.map(col => {
-              const isRequired = REQUIRED_COLS.includes(col);
-              const cls = isRequired ? 'ok' : 'ext';
-              const icon = isRequired ? '✅' : '➕';
-              return `<span class="col-tag ${cls}">${icon} ${col}</span>`;
-            }).join('');
-
-            // Also flag required columns that are MISSING
-            const missing = REQUIRED_COLS.filter(c => !detectedCols.includes(c));
-            missing.forEach(col => {
-              tagsEl.innerHTML += `<span class="col-tag mis">❌ ${col} (missing)</span>`;
-            });
-
-            // Summary banner
-            const banner = document.getElementById('match-banner');
-            if (missing.length === 0) {
-              banner.className = 'all-ok';
-              banner.textContent = '✅ All required columns found — you\'re good to go!';
-            } else {
-              banner.className = 'missing';
-              banner.textContent = `⚠️ Missing ${missing.length} required column(s): ${missing.join(', ')}. Check the Header Row setting or your file.`;
-            }
-
-            document.getElementById('file-info').style.display = 'block';
-            document.getElementById('file-info').scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-          // ──────────────────────────────────────────────────────────────────
-
+          document.getElementById('fileName').textContent = f.name;
+          document.getElementById('fileChosen').style.display = 'flex';
+          cachedData = null;
+          runAutoDetect();
         } catch (err) {
-          showStatus('error', '❌ Could not read file: ' + err.message);
+          showToast('❌ Could not read file: ' + err.message);
         }
       };
       reader.readAsArrayBuffer(f);
     }
 
-    // ─── Core processing ─────────────────────────────────────────────────────────
-    function processData() {
-      if (!workbook) return null;
-
-      const headerRow = parseInt(document.getElementById('headerRow').value) || 0;
-      const catFilter = document.getElementById('categoryInput').value.trim().toUpperCase();
-
-      // Read first sheet as array-of-arrays, respecting header offset
+    // ════════════════════════════════════════════════════════════════════
+    // STRATEGY 1+2: AUTO-DETECT HEADER ROW + SMART SCAN PANEL
+    // ════════════════════════════════════════════════════════════════════
+    function runAutoDetect(overrideRow) {
+      if (!workbook) return;
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
+      const raw = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
 
-      // Convert to JSON using the header row
-      const raw = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "" });
-      if (raw.length <= headerRow) { showStatus('error', '❌ File has no data after the header row.'); return null; }
-
-      const headers = raw[headerRow].map(h => String(h).trim());
-      const rows = raw.slice(headerRow + 1).filter(r => r.some(c => c !== ""));
-
-      // Check ItemName exists
-      const itemIdx = headers.indexOf("ItemName");
-      if (itemIdx === -1) { showStatus('error', "❌ Column 'ItemName' not found. Check the header row."); return null; }
-
-      // Build objects
-      let data = rows.map(row => {
-        const obj = {};
-        headers.forEach((h, i) => { obj[h] = row[i] !== undefined ? row[i] : ""; });
-
-        // Split ItemName → Model, Category_raw, Brand
-        const parts = String(obj["ItemName"]).split(" - ");
-        obj["Model"] = (parts[0] || "").trim().toUpperCase();
-        obj["Category_raw"] = (parts[1] || "").trim().toUpperCase();
-        obj["Brand"] = (parts[2] || "").trim().toUpperCase();
-        obj["Category"] = ALIASES[obj["Category_raw"]] || obj["Category_raw"];
-
-        return obj;
-      });
-
-      // Filter by category if specified
-      if (catFilter) {
-        const normalised = ALIASES[catFilter] || catFilter;
-        data = data.filter(r => r["Category"] === normalised);
+      // Score each of the first 10 rows
+      const scores = [];
+      for (let i = 0; i < Math.min(10, raw.length); i++) {
+        const cells = raw[i].map(c => String(c).trim());
+        const direct = cells.filter(c => REQUIRED_COLS.includes(c)).length;
+        const fuzzy = REQUIRED_COLS.filter(req => !cells.includes(req) && cells.some(c => fuzzyMatch(c, req) !== null)).length;
+        scores.push({ row: i, cells, direct, fuzzy, total: direct + fuzzy });
       }
 
+      let bestRow = overrideRow !== undefined ? overrideRow : scores.reduce((a, b) => b.total > a.total ? b : a).row;
+      const bestScore = scores[bestRow];
+
+      detectedHeaderRow = bestRow;
+      rawHeaders = scores[bestRow].cells.filter(Boolean);
+      allRawRows = raw.slice(bestRow + 1).filter(r => r.some(c => String(c).trim() !== ''));
+
+      // Show scan panel
+      const panel = document.getElementById('scan-panel');
+      panel.style.display = 'block';
+
+      const badge = document.getElementById('scan-badge');
+      badge.className = 'scan-badge ' + (bestScore.total >= 4 ? 'ok' : 'warn');
+      badge.textContent = bestScore.total >= 4
+        ? `✅ Header found at Row ${bestRow + 1} — ${bestScore.total}/${REQUIRED_COLS.length} columns matched`
+        : `⚠️ Row ${bestRow + 1} selected — only ${bestScore.total} columns matched (low confidence)`;
+
+      // Override dropdown
+      const override = document.getElementById('scanOverride');
+      override.innerHTML = scores.map(s =>
+        `<option value="${s.row}" ${s.row === bestRow ? 'selected' : ''}>Row ${s.row + 1} (${s.total} matches)</option>`
+      ).join('');
+
+      // Detail rows
+      const detail = document.getElementById('scan-rows-detail');
+      detail.innerHTML = scores.map(s => `
+    <div class="scan-row-item ${s.row === bestRow ? 'best' : ''}">
+      <span class="scan-row-num">${s.row + 1}</span>
+      <span class="scan-row-preview">${s.cells.slice(0, 8).join(', ') || '(empty row)'}</span>
+      <span class="scan-score ${s.total >= REQUIRED_COLS.length ? 'high' : s.total >= 3 ? 'mid' : 'low'}">${s.total}/${REQUIRED_COLS.length}</span>
+    </div>`).join('');
+
+      // Run fuzzy matching then show mapper/summary
+      buildMapping(rawHeaders, overrideRow !== undefined);
+    }
+
+    function toggleScanDetails() {
+      const d = document.getElementById('scan-rows-detail');
+      const btn = document.querySelector('[onclick="toggleScanDetails()"]');
+      const visible = d.style.display === 'block';
+      d.style.display = visible ? 'none' : 'block';
+      btn.textContent = visible ? 'Show scan details' : 'Hide scan details';
+    }
+
+    function onOverrideChange() {
+      const row = parseInt(document.getElementById('scanOverride').value);
+      cachedData = null;
+      runAutoDetect(row);
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // STRATEGY 5: FUZZY COLUMN MATCHING
+    // ════════════════════════════════════════════════════════════════════
+    function levenshtein(a, b) {
+      const m = a.length, n = b.length;
+      const dp = Array.from({ length: m + 1 }, (_, i) => Array.from({ length: n + 1 }, (_, j) => i === 0 ? j : j === 0 ? i : 0));
+      for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++)
+        dp[i][j] = a[i - 1] === b[j - 1] ? dp[i - 1][j - 1] : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+      return dp[m][n];
+    }
+
+    function fuzzyMatch(candidate, requiredCol) {
+      const c = candidate.toLowerCase().replace(/[_\-]/g, ' ').trim();
+      // 1. Direct alias
+      const aliases = (COL_ALIASES[requiredCol] || []).map(a => a.toLowerCase());
+      if (aliases.includes(c)) return 'alias';
+      // 2. Levenshtein ≤ 3
+      const reqLower = requiredCol.toLowerCase();
+      if (levenshtein(c, reqLower) <= 3) return 'levenshtein';
+      // 3. Substring
+      if (c.includes(reqLower) || reqLower.includes(c)) return 'substring';
+      return null;
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // BUILD MAPPING (runs fuzzy, then shows mapper or summary)
+    // ════════════════════════════════════════════════════════════════════
+    function buildMapping(headers, fromOverride) {
+      resolvedMapping = {};
+      const mapperRows = [];
+      let needsMapper = false;
+
+      for (const req of REQUIRED_COLS) {
+        if (req === 'Model' || req === 'Category' || req === 'Brand') {
+          // These are derived from ItemName — not real columns
+          resolvedMapping[req] = '__derived__';
+          continue;
+        }
+        // Direct match
+        if (headers.includes(req)) {
+          resolvedMapping[req] = req;
+          mapperRows.push({ req, matched: req, status: 'ok' });
+          continue;
+        }
+        // Fuzzy
+        let best = null, bestType = null;
+        for (const h of headers) {
+          const t = fuzzyMatch(h, req);
+          if (t) { best = h; bestType = t; break; }
+        }
+        if (best) {
+          resolvedMapping[req] = best;
+          mapperRows.push({ req, matched: best, status: 'fuzzy' });
+        } else {
+          resolvedMapping[req] = null;
+          mapperRows.push({ req, matched: null, status: 'miss' });
+          needsMapper = true;
+        }
+      }
+
+      // Check saved profile fingerprint
+      const fp = fingerprint(headers);
+      const prof = findProfileByFingerprint(fp);
+      if (prof && !fromOverride) {
+        resolvedMapping = { ...resolvedMapping, ...prof.mapping };
+        showToast(`📋 Profile applied: ${prof.name}`);
+        document.getElementById('profileApplied').textContent = `📋 ${prof.name}`;
+        document.getElementById('profileApplied').style.display = 'inline-flex';
+        needsMapper = false;
+      } else {
+        document.getElementById('profileApplied').style.display = 'none';
+      }
+
+      showSummary();
+
+      if (needsMapper) {
+        renderMapper(mapperRows, headers);
+        document.getElementById('mapper-panel').style.display = 'block';
+      } else {
+        document.getElementById('mapper-panel').style.display = 'none';
+        document.getElementById('filter-card').style.display = 'block';
+      }
+      document.getElementById('scan-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // STRATEGY 3: COLUMN MAPPER UI
+    // ════════════════════════════════════════════════════════════════════
+    function renderMapper(rows, headers) {
+      const opts = ['— not mapped —', ...headers].map(h => `<option value="${h}">${h}</option>`).join('');
+      document.getElementById('mapperBody').innerHTML = rows
+        .filter(r => r.status !== 'ok' || true)  // show all for transparency
+        .map(r => {
+          if (r.status === 'ok') return `
+        <tr>
+          <td><strong>${r.req}</strong></td>
+          <td><select id="map_${r.req}" class="map-sel">${opts.replace(`value="${r.matched}"`, `value="${r.matched}" selected`)}</select></td>
+          <td><span class="status-pill ok">✅ Direct match</span></td>
+        </tr>`;
+          if (r.status === 'fuzzy') return `
+        <tr>
+          <td><strong>${r.req}</strong></td>
+          <td><select id="map_${r.req}" class="map-sel">${opts.replace(`value="${r.matched}"`, `value="${r.matched}" selected`)}</select></td>
+          <td><span class="status-pill fuzzy">🔶 Fuzzy → ${r.matched}</span></td>
+        </tr>`;
+          return `
+        <tr>
+          <td><strong>${r.req}</strong></td>
+          <td><select id="map_${r.req}" class="map-sel">${opts}</select></td>
+          <td><span class="status-pill miss">❌ Not found</span></td>
+        </tr>`;
+        }).join('');
+    }
+
+    function applyMapping() {
+      document.querySelectorAll('.map-sel').forEach(sel => {
+        const req = sel.id.replace('map_', '');
+        const val = sel.value;
+        resolvedMapping[req] = val === '— not mapped —' ? null : val;
+      });
+      cachedData = null;
+      document.getElementById('mapper-panel').style.display = 'none';
+      document.getElementById('filter-card').style.display = 'block';
+      showSummary();
+      showToast('✅ Column mapping applied');
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // FILE SUMMARY PANEL
+    // ════════════════════════════════════════════════════════════════════
+    function showSummary() {
+      const dataRows = allRawRows.length;
+      document.getElementById('info-sheet').textContent = workbook.SheetNames[0];
+      document.getElementById('info-rows').textContent = dataRows.toLocaleString();
+      document.getElementById('info-colcount').textContent = rawHeaders.length;
+
+      const tagsEl = document.getElementById('info-cols');
+      const missing = [];
+      tagsEl.innerHTML = REQUIRED_COLS.filter(c => c !== 'Model' && c !== 'Category' && c !== 'Brand').map(req => {
+        const mapped = resolvedMapping[req];
+        if (mapped === '__derived__') return '';
+        if (mapped) return `<span class="col-tag ok">✅ ${req}${mapped !== req ? ' ← ' + mapped : ''}</span>`;
+        missing.push(req);
+        return `<span class="col-tag mis">❌ ${req} (missing)</span>`;
+      }).join('') + `<span class="col-tag ok">✅ Model (derived)</span><span class="col-tag ok">✅ Category (derived)</span><span class="col-tag ok">✅ Brand (derived)</span>`;
+
+      const banner = document.getElementById('match-banner');
+      if (missing.length === 0) {
+        banner.className = 'all-ok';
+        banner.textContent = '✅ All required columns resolved — ready to filter & download!';
+      } else {
+        banner.className = 'missing';
+        banner.textContent = `⚠️ ${missing.length} column(s) still missing: ${missing.join(', ')}`;
+      }
+      document.getElementById('file-info').style.display = 'block';
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // STRATEGY 4: FORMAT PROFILES (localStorage)
+    // ════════════════════════════════════════════════════════════════════
+    function fingerprint(headers) {
+      return headers.slice().sort().join('|').toLowerCase();
+    }
+    function loadProfiles() {
+      try { return JSON.parse(localStorage.getItem(PROFILES_KEY) || '[]'); } catch { return []; }
+    }
+    function saveProfiles(profiles) {
+      localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles));
+    }
+    function findProfileByFingerprint(fp) {
+      return loadProfiles().find(p => p.fingerprint === fp);
+    }
+    function refreshProfileDropdown() {
+      const sel = document.getElementById('profileSelect');
+      const profiles = loadProfiles();
+      sel.innerHTML = '<option value="">— Auto Detect —</option>' +
+        profiles.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+    }
+    function saveProfile() {
+      const name = document.getElementById('profileNameInput').value.trim();
+      if (!name) { showToast('⚠️ Enter a profile name first'); return; }
+      const fp = fingerprint(rawHeaders);
+      const profiles = loadProfiles().filter(p => p.name !== name);
+      profiles.push({ name, fingerprint: fp, mapping: { ...resolvedMapping }, headerRow: detectedHeaderRow });
+      saveProfiles(profiles);
+      refreshProfileDropdown();
+      document.getElementById('profileNameInput').value = '';
+      showToast(`💾 Profile "${name}" saved`);
+    }
+    function applyProfile() {
+      const name = document.getElementById('profileSelect').value;
+      if (!name || !workbook) return;
+      const prof = loadProfiles().find(p => p.name === name);
+      if (!prof) return;
+      resolvedMapping = { ...prof.mapping };
+      detectedHeaderRow = prof.headerRow;
+      cachedData = null;
+      runAutoDetect(prof.headerRow);
+      showToast(`📋 Profile "${name}" applied`);
+    }
+    function deleteProfile() {
+      const name = document.getElementById('profileSelect').value;
+      if (!name) { showToast('⚠️ Select a profile to delete'); return; }
+      if (!confirm(`Delete profile "${name}"?`)) return;
+      saveProfiles(loadProfiles().filter(p => p.name !== name));
+      refreshProfileDropdown();
+      showToast(`🗑 Profile "${name}" deleted`);
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // CORE DATA PROCESSING
+    // ════════════════════════════════════════════════════════════════════
+    function processData() {
+      if (!workbook || rawHeaders.length === 0) return null;
+      const catFilter = document.getElementById('categoryInput').value.trim().toUpperCase();
+
+      // Build objects from raw rows using resolvedMapping
+      let data = allRawRows.map(row => {
+        const obj = {};
+        rawHeaders.forEach((h, i) => { obj[h] = row[i] !== undefined ? String(row[i]).trim() : ''; });
+
+        // Map to required col names
+        const out = {};
+        for (const req of REQUIRED_COLS) {
+          if (resolvedMapping[req] === '__derived__') continue;
+          out[req] = resolvedMapping[req] ? (obj[resolvedMapping[req]] || '') : '';
+        }
+
+        // Derive Model, Category_raw, Brand from ItemName
+        const parts = String(out['ItemName'] || '').split(' - ');
+        out['Model'] = (parts[0] || '').trim().toUpperCase();
+        out['Category_raw'] = (parts[1] || '').trim().toUpperCase();
+        out['Brand'] = (parts[2] || '').trim().toUpperCase();
+        out['Category'] = CAT_ALIASES[out['Category_raw']] || out['Category_raw'];
+        return out;
+      }).filter(r => r['ItemName']);
+
+      if (catFilter) {
+        const norm = CAT_ALIASES[catFilter] || catFilter;
+        data = data.filter(r => r['Category'] === norm);
+      }
       if (data.length === 0) {
-        showStatus('error', `❌ No records found for '${catFilter || "all categories"}'. Check spelling.`);
+        showStatus('error', `❌ No records found for '${catFilter || "chosen filter"}'. Check spelling.`);
         return null;
       }
 
-      // Keep only required columns
-      const cols = REQUIRED_COLS.filter(c => headers.includes(c) || ["Model", "Category", "Brand"].includes(c));
-      const filtered = data.map(row => {
-        const out = {};
-        cols.forEach(c => { out[c] = row[c] !== undefined ? row[c] : ""; });
-        return out;
-      });
-
+      const cols = REQUIRED_COLS.filter(c => data.some(r => r[c]));
+      const filtered = data.map(r => { const o = {}; cols.forEach(c => o[c] = r[c] || ''); return o; });
       return { cols, rows: filtered };
     }
 
-    // ─── Preview ────────────────────────────────────────────────────────────────
+    // ════════════════════════════════════════════════════════════════════
+    // PREVIEW & DOWNLOAD
+    // ════════════════════════════════════════════════════════════════════
     function doPreview() {
-      if (!workbook) return showStatus('error', 'Please upload a file first.');
       showStatus('info', '⏳ Processing...');
-      previewBtn.disabled = true;
-
-      setTimeout(() => {   // let UI repaint
-        try {
-          const result = processData();
-          if (!result) { previewBtn.disabled = false; return; }
-          cachedData = result;
-
-          const { cols, rows } = result;
-          const head = document.getElementById('previewHead');
-          const body = document.getElementById('previewBody');
-
-          head.innerHTML = '<tr>' + cols.map(c => `<th>${c}</th>`).join('') + '</tr>';
-          body.innerHTML = rows.slice(0, 20).map(row =>
-            '<tr>' + cols.map(c => { const v = String(row[c] || ''); return `<td title="${v}">${v}</td>`; }).join('') + '</tr>'
-          ).join('');
-
-          document.getElementById('rowCount').innerHTML =
-            `Showing first 20 of <span>${rows.length.toLocaleString()}</span> matching rows`;
-          document.getElementById('preview-wrap').style.display = 'block';
-          document.getElementById('preview-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
-          showStatus('success', `✅ Found ${rows.length.toLocaleString()} rows`);
-        } catch (err) {
-          showStatus('error', '❌ ' + err.message);
-        } finally {
-          previewBtn.disabled = false;
-        }
+      setTimeout(() => {
+        const result = processData();
+        if (!result) return;
+        cachedData = result;
+        const { cols, rows } = result;
+        document.getElementById('previewHead').innerHTML = '<tr>' + cols.map(c => `<th>${c}</th>`).join('') + '</tr>';
+        document.getElementById('previewBody').innerHTML = rows.slice(0, 20).map(row =>
+          '<tr>' + cols.map(c => { const v = String(row[c] || ''); return `<td title="${v}">${v}</td>`; }).join('') + '</tr>'
+        ).join('');
+        document.getElementById('rowCount').innerHTML = `Showing first 20 of <span>${rows.length.toLocaleString()}</span> matching rows`;
+        document.getElementById('preview-wrap').style.display = 'block';
+        document.getElementById('preview-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showStatus('success', `✅ Found ${rows.length.toLocaleString()} rows`);
       }, 50);
     }
 
-    // ─── Download ───────────────────────────────────────────────────────────────
     function doDownload() {
-      if (!workbook) return showStatus('error', 'Please upload a file first.');
+      if (!workbook) return showStatus('error', 'Upload a file first.');
       const label = document.getElementById('downloadLabel');
       label.innerHTML = '<div class="spinner"></div> Generating...';
-      downloadBtn.disabled = true;
-
       setTimeout(() => {
-        try {
-          const result = cachedData || processData();
-          if (!result) { label.innerHTML = '⬇ Download Excel'; downloadBtn.disabled = false; return; }
-          cachedData = result;
-
-          const { cols, rows } = result;
-          // Build worksheet
-          const wsData = [cols, ...rows.map(r => cols.map(c => r[c] !== undefined ? r[c] : ""))];
-          const ws = XLSX.utils.aoa_to_sheet(wsData);
-          const wb = XLSX.utils.book_new();
-          XLSX.utils.book_append_sheet(wb, ws, "Report");
-
-          const catVal = document.getElementById('categoryInput').value.trim().replace(/\s+/g, '_').toUpperCase() || 'ALL';
-          XLSX.writeFile(wb, `${catVal}_output.xlsx`);
-          showStatus('success', `✅ Downloaded: ${catVal}_output.xlsx`);
-        } catch (err) {
-          showStatus('error', '❌ ' + err.message);
-        } finally {
-          label.innerHTML = '⬇ Download Excel';
-          downloadBtn.disabled = false;
-        }
+        const result = cachedData || processData();
+        if (!result) { label.innerHTML = '⬇ Download Excel'; return; }
+        cachedData = result;
+        const { cols, rows } = result;
+        const wsData = [cols, ...rows.map(r => cols.map(c => r[c] || ''))];
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Report');
+        const cat = document.getElementById('categoryInput').value.trim().replace(/\s+/g, '_').toUpperCase() || 'ALL';
+        XLSX.writeFile(wb, `${cat}_output.xlsx`);
+        showStatus('success', `✅ Downloaded: ${cat}_output.xlsx`);
+        label.innerHTML = '⬇ Download Excel';
       }, 50);
     }
 
-    // ─── Helpers ─────────────────────────────────────────────────────────────────
+    // ════════════════════════════════════════════════════════════════════
+    // HELPERS
+    // ════════════════════════════════════════════════════════════════════
     function setPill(val) {
       document.getElementById('categoryInput').value = val;
-      cachedData = null; // reset cache when category changes
+      cachedData = null;
     }
     function showStatus(type, msg) {
-      statusEl.className = type;
-      statusEl.textContent = msg;
-      statusEl.style.display = 'flex';
+      const el = document.getElementById('status');
+      el.className = type; el.textContent = msg; el.style.display = 'flex';
+    }
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
     }
 
-    // Reset cache whenever inputs change
+    // Init
+    refreshProfileDropdown();
     document.getElementById('categoryInput').addEventListener('input', () => { cachedData = null; });
-    document.getElementById('headerRow').addEventListener('change', () => { cachedData = null; workbook = null; previewBtn.disabled = true; downloadBtn.disabled = true; fileChosen.style.display = 'none'; });
   </script>
 </body>
 
