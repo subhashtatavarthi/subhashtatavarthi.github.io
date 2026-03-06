@@ -1277,18 +1277,6 @@
         }
       }
 
-      // Check saved profile fingerprint
-      const fp = fingerprint(headers);
-      const prof = findProfileByFingerprint(fp);
-      if (prof && !fromOverride) {
-        resolvedMapping = { ...resolvedMapping, ...prof.mapping };
-        showToast(`📋 Profile applied: ${prof.name}`);
-        document.getElementById('profileApplied').textContent = `📋 ${prof.name}`;
-        document.getElementById('profileApplied').style.display = 'inline-flex';
-        needsMapper = false;
-      } else {
-        document.getElementById('profileApplied').style.display = 'none';
-      }
 
       showSummary();
 
