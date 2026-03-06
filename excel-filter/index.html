@@ -525,35 +525,96 @@
       text-underline-offset: 2px
     }
 
-    /* Profile bar */
-    .profile-bar {
+
+    /* ── History ── */
+    #history-panel {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 32px;
+      width: 100%;
+      max-width: 720px;
+      margin-bottom: 20px
+    }
+
+    #history-panel h4 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap
+      justify-content: space-between
     }
 
-    .profile-bar label {
-      margin: 0;
-      white-space: nowrap
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
     }
 
-    .profile-bar select {
+    .history-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 13px
+    }
+
+    .history-icon {
+      font-size: 22px;
+      flex-shrink: 0
+    }
+
+    .history-meta {
       flex: 1;
-      min-width: 160px
+      min-width: 0
     }
 
-    .profile-applied {
-      display: none;
-      font-size: 12px;
-      padding: 4px 10px;
+    .history-filename {
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .history-detail {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 3px
+    }
+
+    .history-cats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 5px
+    }
+
+    .history-cat-tag {
+      font-size: 11px;
+      padding: 2px 8px;
       background: #e0f2fe;
       border: 1px solid #7dd3fc;
       color: #0369a1;
       border-radius: 100px;
       font-weight: 500
     }
+
+    .history-empty {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 20px 0
+    }
+
 
     /* ── Column Mapper ── */
     #mapper-panel {
@@ -654,17 +715,6 @@
       flex-wrap: wrap
     }
 
-    .profile-name-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex: 1
-    }
-
-    .profile-name-wrap input[type="text"] {
-      padding: 8px 12px;
-      font-size: 13px
-    }
 
     /* ── File Summary ── */
     #file-info {
@@ -892,15 +942,7 @@
       Step 1 — Upload Master File
     </div>
 
-    <!-- Profile bar -->
-    <div class="profile-bar">
-      <label>Format Profile</label>
-      <select id="profileSelect" onchange="applyProfile()">
-        <option value="">— Auto Detect —</option>
-      </select>
-      <button class="btn-ghost btn-sm" onclick="deleteProfile()">🗑 Delete</button>
-      <span class="profile-applied" id="profileApplied"></span>
-    </div>
+
 
     <div class="drop-zone" id="dropZone">
       <input type="file" id="fileInput" accept=".xlsx,.xls" />
@@ -951,10 +993,6 @@
     </table>
     <div class="mapper-actions">
       <button class="btn-primary btn-sm" onclick="applyMapping()">✅ Apply Mapping</button>
-      <div class="profile-name-wrap">
-        <input type="text" id="profileNameInput" placeholder="Profile name (e.g. FEB Format)" style="flex:1" />
-        <button class="btn-ghost btn-sm" onclick="saveProfile()">💾 Save as Profile</button>
-      </div>
     </div>
   </div>
 
@@ -1008,6 +1046,21 @@
       </button>
     </div>
     <div id="status"></div>
+  </div>
+
+  <!-- ── Upload History ── -->
+  <div id="history-panel">
+    <h4>
+      <span style="display:flex;align-items:center;gap:8px">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Upload History
+      </span>
+      <button class="btn-ghost btn-sm" onclick="clearHistory()" style="font-size:11px;padding:4px 10px">🗑
+        Clear</button>
+    </h4>
+    <div class="history-list" id="history-list"></div>
   </div>
 
   <!-- ── Preview ── -->
@@ -1083,6 +1136,11 @@
           document.getElementById('fileChosen').style.display = 'flex';
           cachedData = null;
           runAutoDetect();
+          // Record in history after auto-detect runs (rows/sheet available then)
+          setTimeout(() => {
+            const sheet = workbook ? workbook.SheetNames[0] : '';
+            addHistoryEntry(f.name, allRawRows.length, sheet);
+          }, 300);
         } catch (err) {
           showToast('❌ Could not read file: ' + err.message);
         }
@@ -1367,57 +1425,7 @@
       label.style.display = 'block';
     }
 
-    // ════════════════════════════════════════════════════════════════════
-    // STRATEGY 4: FORMAT PROFILES (localStorage)
-    // ════════════════════════════════════════════════════════════════════
-    function fingerprint(headers) {
-      return headers.slice().sort().join('|').toLowerCase();
-    }
-    function loadProfiles() {
-      try { return JSON.parse(localStorage.getItem(PROFILES_KEY) || '[]'); } catch { return []; }
-    }
-    function saveProfiles(profiles) {
-      localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles));
-    }
-    function findProfileByFingerprint(fp) {
-      return loadProfiles().find(p => p.fingerprint === fp);
-    }
-    function refreshProfileDropdown() {
-      const sel = document.getElementById('profileSelect');
-      const profiles = loadProfiles();
-      sel.innerHTML = '<option value="">— Auto Detect —</option>' +
-        profiles.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
-    }
-    function saveProfile() {
-      const name = document.getElementById('profileNameInput').value.trim();
-      if (!name) { showToast('⚠️ Enter a profile name first'); return; }
-      const fp = fingerprint(rawHeaders);
-      const profiles = loadProfiles().filter(p => p.name !== name);
-      profiles.push({ name, fingerprint: fp, mapping: { ...resolvedMapping }, headerRow: detectedHeaderRow });
-      saveProfiles(profiles);
-      refreshProfileDropdown();
-      document.getElementById('profileNameInput').value = '';
-      showToast(`💾 Profile "${name}" saved`);
-    }
-    function applyProfile() {
-      const name = document.getElementById('profileSelect').value;
-      if (!name || !workbook) return;
-      const prof = loadProfiles().find(p => p.name === name);
-      if (!prof) return;
-      resolvedMapping = { ...prof.mapping };
-      detectedHeaderRow = prof.headerRow;
-      cachedData = null;
-      runAutoDetect(prof.headerRow);
-      showToast(`📋 Profile "${name}" applied`);
-    }
-    function deleteProfile() {
-      const name = document.getElementById('profileSelect').value;
-      if (!name) { showToast('⚠️ Select a profile to delete'); return; }
-      if (!confirm(`Delete profile "${name}"?`)) return;
-      saveProfiles(loadProfiles().filter(p => p.name !== name));
-      refreshProfileDropdown();
-      showToast(`🗑 Profile "${name}" deleted`);
-    }
+
 
     // ════════════════════════════════════════════════════════════════════
     // CORE DATA PROCESSING
@@ -1499,6 +1507,7 @@
         const cat = document.getElementById('categoryInput').value.trim().replace(/\s+/g, '_').toUpperCase() || 'ALL';
         XLSX.writeFile(wb, `${cat}_output.xlsx`);
         showStatus('success', `✅ Downloaded: ${cat}_output.xlsx`);
+        recordDownload(cat.replace(/_/g, ' '));  // log to history
         label.innerHTML = '⬇ Download Excel';
       }, 50);
     }
@@ -1520,8 +1529,76 @@
       setTimeout(() => t.classList.remove('show'), 2800);
     }
 
+    // ════════════════════════════════════════════════════════════════════
+    // UPLOAD HISTORY (localStorage)
+    // ════════════════════════════════════════════════════════════════════
+    const HISTORY_KEY = 'mrb_history_v1';
+    const MAX_HISTORY = 20;
+
+    function loadHistory() {
+      try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch { return []; }
+    }
+    function saveHistory(list) {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+    }
+    function addHistoryEntry(filename, rows, sheet) {
+      const list = loadHistory();
+      // If same filename already exists today, update it
+      const today = new Date().toDateString();
+      const existing = list.findIndex(e => e.filename === filename && new Date(e.ts).toDateString() === today);
+      const entry = { filename, rows, sheet, ts: Date.now(), downloads: [] };
+      if (existing >= 0) {
+        entry.downloads = list[existing].downloads || [];
+        list.splice(existing, 1);
+      }
+      list.unshift(entry);
+      saveHistory(list.slice(0, MAX_HISTORY));
+      renderHistory();
+    }
+    function recordDownload(cat) {
+      const list = loadHistory();
+      if (!list.length) return;
+      const entry = list[0];
+      if (!entry.downloads) entry.downloads = [];
+      if (!entry.downloads.includes(cat)) entry.downloads.push(cat);
+      saveHistory(list);
+      renderHistory();
+    }
+    function clearHistory() {
+      if (!confirm('Clear all upload history?')) return;
+      localStorage.removeItem(HISTORY_KEY);
+      renderHistory();
+      showToast('🗑 History cleared');
+    }
+    function renderHistory() {
+      const list = loadHistory();
+      const panel = document.getElementById('history-panel');
+      const container = document.getElementById('history-list');
+      panel.style.display = 'block';
+      if (!list.length) {
+        container.innerHTML = '<div class="history-empty">No uploads yet — upload your first file above.</div>';
+        return;
+      }
+      container.innerHTML = list.map(e => {
+        const d = new Date(e.ts);
+        const dateStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) +
+          ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+        const cats = (e.downloads || []).map(c =>
+          `<span class="history-cat-tag">${c}</span>`).join('');
+        return `
+          <div class="history-item">
+            <div class="history-icon">📊</div>
+            <div class="history-meta">
+              <div class="history-filename">${e.filename}</div>
+              <div class="history-detail">📅 ${dateStr} &nbsp;·&nbsp; 📄 ${e.sheet || '—'} &nbsp;·&nbsp; 📊 ${(e.rows || 0).toLocaleString()} rows</div>
+              ${cats ? '<div class="history-cats">' + cats + '</div>' : ''}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
     // Init
-    refreshProfileDropdown();
+    renderHistory();
     document.getElementById('categoryInput').addEventListener('input', () => { cachedData = null; });
   </script>
 </body>
