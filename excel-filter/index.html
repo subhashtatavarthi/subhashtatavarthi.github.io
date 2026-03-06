@@ -1164,12 +1164,55 @@
 
       // Score each of the first 10 rows
       const scores = [];
+      const anchors = ['ItemName', 'Model'].map(a => a.toLowerCase());
+
       for (let i = 0; i < Math.min(10, raw.length); i++) {
         const cells = raw[i].map(c => String(c).trim());
-        const direct = cells.filter(c => REQUIRED_COLS.includes(c)).length;
-        const fuzzy = REQUIRED_COLS.filter(req => !cells.includes(req) && cells.some(c => fuzzyMatch(c, req) !== null)).length;
-        scores.push({ row: i, cells, direct, fuzzy, total: direct + fuzzy });
+        if (cells.length < 3) continue; // Skip mostly empty rows
+
+        let direct = 0;
+        let fuzzy = 0;
+        let hasAnchor = false;
+        let numberPenalty = 0;
+
+        for (const cell of cells) {
+          if (!cell) continue;
+
+          // Penalize rows with numbers (likely data rows, not headers)
+          if (/^\d+(\.\d+)?$/.test(cell)) {
+            numberPenalty += 2;
+            continue;
+          }
+
+          const cellLower = cell.toLowerCase();
+
+          // Check direct requirements
+          const reqMatch = REQUIRED_COLS.find(req => req.toLowerCase() === cellLower);
+          if (reqMatch) {
+            direct++;
+            if (anchors.includes(reqMatch.toLowerCase())) hasAnchor = true;
+            continue;
+          }
+
+          // Check fuzzy requirements (using our dictionary)
+          for (const req of REQUIRED_COLS) {
+            const aliases = COL_ALIASES[req] || [];
+            if (aliases.some(alias => fuzzyMatch(cell, alias))) {
+              fuzzy += 0.5; // Fuzzy is worth less than direct
+              if (anchors.includes(req.toLowerCase())) hasAnchor = true;
+              break;
+            }
+          }
+        }
+
+        // Calculate total score. Must have at least one anchor to be considered a viable header.
+        let total = (direct * 2) + fuzzy - numberPenalty;
+        if (!hasAnchor) total -= 10; // Massive penalty if no ItemName or Model found
+
+        scores.push({ row: i, cells, direct, fuzzy, total });
       }
+
+      if (scores.length === 0) scores.push({ row: 0, cells: raw[0], direct: 0, fuzzy: 0, total: 0 });
 
       let bestRow = overrideRow !== undefined ? overrideRow : scores.reduce((a, b) => b.total > a.total ? b : a).row;
       const bestScore = scores[bestRow];
