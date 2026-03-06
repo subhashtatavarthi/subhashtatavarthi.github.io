@@ -1196,10 +1196,11 @@
           resolvedMapping[req] = '__derived__';
           continue;
         }
-        // Direct match
-        if (headers.includes(req)) {
-          resolvedMapping[req] = req;
-          mapperRows.push({ req, matched: req, status: 'ok' });
+        // Direct match — case-insensitive
+        const directMatch = headers.find(h => h.toLowerCase() === req.toLowerCase());
+        if (directMatch) {
+          resolvedMapping[req] = directMatch;
+          mapperRows.push({ req, matched: directMatch, status: 'ok' });
           continue;
         }
         // Fuzzy
@@ -1455,8 +1456,9 @@
         return null;
       }
 
-      const cols = REQUIRED_COLS.filter(c => data.some(r => r[c]));
-      const filtered = data.map(r => { const o = {}; cols.forEach(c => o[c] = r[c] || ''); return o; });
+      // Always include ALL required columns in output (never drop NetCash/Qty even if some rows are 0)
+      const cols = REQUIRED_COLS;
+      const filtered = data.map(r => { const o = {}; cols.forEach(c => o[c] = r[c] !== undefined ? r[c] : ''); return o; });
       return { cols, rows: filtered };
     }
 
