@@ -266,7 +266,31 @@
       color: #be123c
     }
 
-    /* Buttons */
+    .pill-dynamic {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #475569
+    }
+
+    .pills-section-label {
+      width: 100%;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin: 10px 0 4px;
+      display: none;
+    }
+
+    #dynamic-pills {
+      display: none;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 0;
+    }
+
+
     .btn-row {
       display: flex;
       gap: 12px;
@@ -968,12 +992,14 @@
     <label>Category Keyword</label>
     <input type="text" id="categoryInput" placeholder="e.g. HOME THEATRE, LED, WASHING MACHINE..." />
     <div class="suggestions">
-      <span class="pill pill-blue" onclick="setPill('HOME THEATRE')">🎬 Home Theatre</span>
-      <span class="pill pill-purple" onclick="setPill('LED')">📺 LED TV</span>
-      <span class="pill pill-teal" onclick="setPill('WASHING MACHINE')">🫧 Washing Machine</span>
-      <span class="pill pill-orange" onclick="setPill('REFRIGERATOR')">🧊 Refrigerator</span>
-      <span class="pill pill-rose" onclick="setPill('AIR CONDITIONER')">❄️ Air Conditioner</span>
+      <span class="pill pill-blue" onclick="setPill('HOME THEATRE')">&#11088; Home Theatre</span>
+      <span class="pill pill-purple" onclick="setPill('LED')">&#11088; LED TV</span>
+      <span class="pill pill-teal" onclick="setPill('WASHING MACHINE')">&#11088; Washing Machine</span>
+      <span class="pill pill-orange" onclick="setPill('REFRIGERATOR')">&#11088; Refrigerator</span>
+      <span class="pill pill-rose" onclick="setPill('AIR CONDITIONER')">&#11088; Air Conditioner</span>
     </div>
+    <div class="pills-section-label" id="dynamic-label">Also found in your file</div>
+    <div id="dynamic-pills"></div>
 
     <div class="btn-row">
       <button class="btn-ghost" onclick="doPreview()" id="previewBtn">👁 Preview (first 20)</button>
@@ -1287,6 +1313,57 @@
         banner.textContent = `⚠️ ${missing.length} column(s) still missing: ${missing.join(', ')}`;
       }
       document.getElementById('file-info').style.display = 'block';
+      discoverCategories();
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // DYNAMIC CATEGORY DISCOVERY
+    // ════════════════════════════════════════════════════════════════════
+    const PINNED_CATS = ['HOME THEATRE', 'LED', 'WASHING MACHINE', 'REFRIGERATOR', 'AIR CONDITIONER'];
+    const PINNED_NORMALIZED = PINNED_CATS.map(c => CAT_ALIASES[c] || c);
+
+    function discoverCategories() {
+      if (!workbook || rawHeaders.length === 0) return;
+
+      // Find which raw column maps to ItemName
+      const itemCol = resolvedMapping['ItemName'];
+      const itemIdx = rawHeaders.indexOf(itemCol);
+      if (itemIdx === -1) return;
+
+      // Tally all categories from ItemName
+      const counts = {};
+      allRawRows.forEach(row => {
+        const item = String(row[itemIdx] || '').trim();
+        const parts = item.split(' - ');
+        if (parts.length < 2) return;
+        const rawCat = parts[1].trim().toUpperCase();
+        const normCat = CAT_ALIASES[rawCat] || rawCat;
+        if (!normCat) return;
+        counts[normCat] = (counts[normCat] || 0) + 1;
+      });
+
+      // Separate pinned (already shown) from newly discovered
+      const discovered = Object.entries(counts)
+        .filter(([cat]) => !PINNED_NORMALIZED.includes(cat))
+        .sort((a, b) => b[1] - a[1]);  // sort by count desc
+
+      const container = document.getElementById('dynamic-pills');
+      const label = document.getElementById('dynamic-label');
+
+      if (discovered.length === 0) {
+        container.style.display = 'none';
+        label.style.display = 'none';
+        return;
+      }
+
+      container.innerHTML = discovered.map(([cat, count]) =>
+        `<span class="pill pill-dynamic" onclick="setPill('${cat}')" title="${count.toLocaleString()} rows">
+           ${cat} <span style="opacity:.65;font-size:11px">(${count.toLocaleString()})</span>
+         </span>`
+      ).join('');
+
+      container.style.display = 'flex';
+      label.style.display = 'block';
     }
 
     // ════════════════════════════════════════════════════════════════════
