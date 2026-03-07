@@ -1088,7 +1088,7 @@
     // ════════════════════════════════════════════════════════════════════
     // CONSTANTS
     // ════════════════════════════════════════════════════════════════════
-    const REQUIRED_COLS = ["ItemName", "Model", "Category", "Brand", "Inches", "Branch", "Qty", "Rate", "NetCash"];
+    const REQUIRED_COLS = ["ItemName", "Model", "Category", "Brand", "Inches", "Branch", "Qty", "Rate", "NetCash", "InvoiceDate"];
     const CAT_ALIASES = {
       "SOUNDBAR": "HOME THEATRE", "SOUND BAR": "HOME THEATRE", "HOME THEATER": "HOME THEATRE", "HOME THEATRE": "HOME THEATRE",
       "LED": "LED", "TELEVISION": "LED", "TV": "LED",
@@ -1107,7 +1107,8 @@
       Branch: ["branch name", "branchname", "branch_name", "store", "location", "branchcode"],
       Qty: ["quantity", "qty sold", "units", "unit", "no of units", "nos"],
       Rate: ["rate", "unit rate", "price", "mrp", "unit price", "selling price"],
-      NetCash: ["net cash", "net amount", "net amt", "netamount", "net", "netsales", "net sales", "amount"]
+      NetCash: ["net cash", "net amount", "net amt", "netamount", "net", "netsales", "net sales", "amount"],
+      InvoiceDate: ["invoice date", "inv date", "date", "invoicedate", "bill date", "billing date"]
     };
 
     const PROFILES_KEY = "mrb_profiles_v2";
