@@ -1088,7 +1088,7 @@
     // ════════════════════════════════════════════════════════════════════
     // CONSTANTS
     // ════════════════════════════════════════════════════════════════════
-    const REQUIRED_COLS = ["ItemName", "Model", "Category", "Brand", "Branch", "Qty", "Rate", "NetCash"];
+    const REQUIRED_COLS = ["ItemName", "Model", "Category", "Brand", "Inches", "Branch", "Qty", "Rate", "NetCash"];
     const CAT_ALIASES = {
       "SOUNDBAR": "HOME THEATRE", "SOUND BAR": "HOME THEATRE", "HOME THEATER": "HOME THEATRE", "HOME THEATRE": "HOME THEATRE",
       "LED": "LED", "TELEVISION": "LED", "TV": "LED",
@@ -1276,15 +1276,29 @@
     }
 
     function fuzzyMatch(candidate, requiredCol) {
-      const c = candidate.toLowerCase().replace(/[_\-]/g, ' ').trim();
-      // 1. Direct alias
-      const aliases = (COL_ALIASES[requiredCol] || []).map(a => a.toLowerCase());
-      if (aliases.includes(c)) return 'alias';
-      // 2. Levenshtein ≤ 3
+      const c = candidate.toLowerCase().replace(/[_\-\s\(\)]+/g, '').trim();
       const reqLower = requiredCol.toLowerCase();
-      if (levenshtein(c, reqLower) <= 3) return 'levenshtein';
-      // 3. Substring
-      if (c.includes(reqLower) || reqLower.includes(c)) return 'substring';
+
+      // 1. Direct alias match
+      const aliases = (COL_ALIASES[requiredCol] || []).map(a => a.toLowerCase().replace(/\s+/g, ''));
+      if (aliases.includes(c)) return 'alias';
+
+      // Protect against matching random short data strings
+      if (c.length < 3) return null;
+
+      // 2. Levenshtein <= 2 (strictness buffer for short cols like 'Qty', 'Rate')
+      if (c.length <= 5 && levenshtein(c, reqLower) <= 1) return 'levenshtein';
+      if (c.length > 5 && levenshtein(c, reqLower) <= 2) return 'levenshtein';
+
+      // 3. Substring match (ONLY if the substring is substantial, to avoid 'rate' matching 'Kakkirala AnuroUp')
+      // Rule: The required column must be at least 4 letters to do a substring match, OR the candidate must be clearly related.
+      if (reqLower.length >= 4) {
+        if (c.includes(reqLower)) return 'substring';
+      } else {
+        // For short cols like Qty, Rate: Candidate must exactly start with it to be a substring (e.g., "Rate (Rs)", "Qty In PCS")
+        if (c.startsWith(reqLower)) return 'substring';
+      }
+
       return null;
     }
 
@@ -1297,7 +1311,7 @@
       let needsMapper = false;
 
       for (const req of REQUIRED_COLS) {
-        if (req === 'Model' || req === 'Category' || req === 'Brand') {
+        if (req === 'Model' || req === 'Category' || req === 'Brand' || req === 'Inches') {
           // These are derived from ItemName — not real columns
           resolvedMapping[req] = '__derived__';
           continue;
@@ -1391,13 +1405,13 @@
 
       const tagsEl = document.getElementById('info-cols');
       const missing = [];
-      tagsEl.innerHTML = REQUIRED_COLS.filter(c => c !== 'Model' && c !== 'Category' && c !== 'Brand').map(req => {
+      tagsEl.innerHTML = REQUIRED_COLS.filter(c => !['Model', 'Category', 'Brand', 'Inches'].includes(c)).map(req => {
         const mapped = resolvedMapping[req];
         if (mapped === '__derived__') return '';
         if (mapped) return `<span class="col-tag ok">✅ ${req}${mapped !== req ? ' ← ' + mapped : ''}</span>`;
         missing.push(req);
         return `<span class="col-tag mis">❌ ${req} (missing)</span>`;
-      }).join('') + `<span class="col-tag ok">✅ Model (derived)</span><span class="col-tag ok">✅ Category (derived)</span><span class="col-tag ok">✅ Brand (derived)</span>`;
+      }).join('') + `<span class="col-tag ok">✅ Model, Cat, Brand, Inches (derived)</span>`;
 
       const banner = document.getElementById('match-banner');
       if (missing.length === 0) {
@@ -1488,6 +1502,14 @@
         out['Category_raw'] = (parts[1] || '').trim().toUpperCase();
         out['Brand'] = (parts[2] || '').trim().toUpperCase();
         out['Category'] = CAT_ALIASES[out['Category_raw']] || out['Category_raw'];
+
+        // Extract Inches for TVs/LEDs (looking for patterns like 32", 55 INCH, or starting with 43)
+        out['Inches'] = '';
+        if (out['Category'].includes('LED') || out['Category'].includes('TV')) {
+          const match = out['ItemName'].match(/(\d{2})\s*(?:"|''|INCH|IN|LED|TV|-)/i) || out['ItemName'].match(/^(\d{2})/);
+          if (match) out['Inches'] = match[1];
+        }
+
         return out;
       }).filter(r => r['ItemName']);
 
