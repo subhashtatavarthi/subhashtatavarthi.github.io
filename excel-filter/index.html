@@ -1508,8 +1508,8 @@
         if (out['Category'].includes('LED') || out['Category'].includes('TV')) {
           // 1. Look for explicit mentions anywhere: 65", 65 INCH, 65 IN
           let match = out['ItemName'].match(/(\d{2})\s*(?:"|''|INCH|IN|LED|TV)\b/i);
-          // 2. Look for implicit mentions in the model number (e.g. QA65QN90, 75P7K, KD55X)
-          if (!match) match = out['Model'].match(/^[A-Z]*(\d{2})/i);
+          // 2. Look for implicit mentions: the very first 2-digit number in the Model (e.g. QA65QN90, 75P7K, K-55S30)
+          if (!match) match = out['Model'].match(/^[^0-9]*(\d{2})/);
 
           if (match) out['Inches'] = match[1];
         }
