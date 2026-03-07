@@ -1503,10 +1503,14 @@
         out['Brand'] = (parts[2] || '').trim().toUpperCase();
         out['Category'] = CAT_ALIASES[out['Category_raw']] || out['Category_raw'];
 
-        // Extract Inches for TVs/LEDs (looking for patterns like 32", 55 INCH, or starting with 43)
+        // Extract Inches for TVs/LEDs
         out['Inches'] = '';
         if (out['Category'].includes('LED') || out['Category'].includes('TV')) {
-          const match = out['ItemName'].match(/(\d{2})\s*(?:"|''|INCH|IN|LED|TV|-)/i) || out['ItemName'].match(/^(\d{2})/);
+          // 1. Look for explicit mentions anywhere: 65", 65 INCH, 65 IN
+          let match = out['ItemName'].match(/(\d{2})\s*(?:"|''|INCH|IN|LED|TV)\b/i);
+          // 2. Look for implicit mentions in the model number (e.g. QA65QN90, 75P7K, KD55X)
+          if (!match) match = out['Model'].match(/^[A-Z]*(\d{2})/i);
+
           if (match) out['Inches'] = match[1];
         }
 
@@ -1540,7 +1544,7 @@
         const { cols, rows } = result;
         document.getElementById('previewHead').innerHTML = '<tr>' + cols.map(c => `<th>${c}</th>`).join('') + '</tr>';
         document.getElementById('previewBody').innerHTML = rows.slice(0, 20).map(row =>
-          '<tr>' + cols.map(c => { const v = String(row[c] || ''); return `<td title="${v}">${v}</td>`; }).join('') + '</tr>'
+          '<tr>' + cols.map(c => { const v = String(row[c] || '').trim(); return `<td title="${v}">${v || '&nbsp;'}</td>`; }).join('') + '</tr>'
         ).join('');
         document.getElementById('rowCount').innerHTML = `Showing first 20 of <span>${rows.length.toLocaleString()}</span> matching rows`;
         document.getElementById('preview-wrap').style.display = 'block';
